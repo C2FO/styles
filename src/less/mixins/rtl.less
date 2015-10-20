@@ -1,0 +1,135 @@
+/* ------------------------------------------------------------------------- *\
+    Styles specific to supporting right to left and right to left
+    interchangeably.
+
+    1. RTLFloats ... Styles for floating rtl and ltr
+    2. RTLRadius ... Control border radius direction
+    3. RTLBorder ... Control border properties
+
+    NOTE: When using the mixins the styles need to be applied
+    to the block calling it, not within the block. So they almost all
+    are declared with the `&` after the selector to "pull" the style
+    out. See this LESS doc:
+    http://lesscss.org/features/#extend-feature-extending-nested-selectors
+
+\* ------------------------------------------------------------------------- */
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #RTLFloats
+
+    Styles for handling floating left or right depending on [dir] attribute
+    in the html.
+
+\* ------------------------------------------------------------------------- */
+.float-left-mixin() {
+    [dir="rtl"] & {
+        float: right;
+    }
+
+    [dir="ltr"] & {
+        float: left;
+    }
+}
+
+.float-right-mixin() {
+    [dir="rtl"] & {
+        float: left;
+    }
+
+    [dir="ltr"] & {
+        float: right;
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #RTLRadius
+
+    Handle the creation of border radius given the direction the border
+    radius should start. This means these border radius mixins should be
+    used in conjunction.
+
+    Example Usage:
+
+        .button-group--horizontal {
+            .button {
+                border-radius: 0;
+            }
+
+            .button:first-child {
+                .border-radius-left-mixin(@border-radius);
+            }
+
+            .button:last-child {
+                .border-radius-right-mixin(@border-radius);
+            }
+        }
+
+\* ------------------------------------------------------------------------- */
+.border-radius-left-mixin(@radius) {
+    [dir="ltr"] & {
+        border-top-left-radius: @radius;
+        border-bottom-left-radius: @radius;
+    }
+
+    [dir="rtl"] & {
+        border-top-right-radius: @radius;
+        border-bottom-right-radius: @radius;
+    }
+}
+
+.border-radius-right-mixin(@radius) {
+    [dir="ltr"] & {
+        border-top-right-radius: @radius;
+        border-bottom-right-radius: @radius;
+    }
+
+    [dir="rtl"] & {
+        border-top-left-radius: @radius;
+        border-bottom-left-radius: @radius;
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #RTLBorder
+
+    Handle the creation of borders given the direction the border
+    should start. This means these border-*-mixins should be
+    used in conjunction.
+\* ------------------------------------------------------------------------- */
+.border-left-mixin(@width, @color) {
+    [dir="ltr"] & {
+        border-left-width: @width;
+        border-left-color: @color;
+    }
+
+    [dir="rtl"] & {
+        border-right-width: @width;
+        border-right-color: @color;
+    }
+}
+
+.border-right-mixin(@width, @color) {
+    border-right-width: @width;
+
+    [dir="ltr"] & {
+        border-right-width: @width;
+        border-right-color: @color;
+    }
+
+    [dir="rtl"] & {
+        border-left-width: @width;
+        border-left-color: @color;
+    }
+}

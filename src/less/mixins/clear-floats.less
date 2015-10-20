@@ -1,0 +1,32 @@
+/* ------------------------------------------------------------------------- *\
+    Mixins for clearing out floats.
+
+    1. ClearFloats ... use to clear out floated content
+
+\* ------------------------------------------------------------------------- */
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #ClearFloats
+
+    This mixin should be used on elements that contain floated elements to
+    ensure that the document flow is restored.
+
+    1. Ensures the content clears out...
+    2. ...all the floats
+
+\* ------------------------------------------------------------------------- */
+.clear-floats-mixin() {
+    &:before,
+    &:after {
+        content: " ";
+        display: table; /* [1] */
+    }
+
+    &:after {
+        clear: both; /* [2] */
+    }
+}

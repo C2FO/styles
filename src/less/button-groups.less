@@ -1,0 +1,92 @@
+/* ------------------------------------------------------------------------- *\
+    Button Groups
+
+    This file contains all styles for grouping buttons together. There
+    should be no visual styles applied within this file. Only the structure
+    of the buttons should be modified when within a group. This means
+    all buttons must use the `.button` class to get the correct overrides.
+
+    1. BaseButtonGroups      ... shared styles for all groups
+    2. ButtonGroupHorizontal ... styles for horizontal button groups
+
+    Example usage:
+
+        <div class="button-group button-group--horizontal">
+            <button class="button button--primary">Update Profile</button>
+            <a class="button button--secondary button--large">Click</a>
+        </div>
+
+    Note: a large amount of the styles within this file are take from
+        bootstrap's button groups.
+        https://github.com/twbs/bootstrap/blob/v3.3.5/less/button-groups.less
+
+\* ------------------------------------------------------------------------- */
+@import 'mixins/clear-floats';
+@import 'mixins/rtl';
+@import 'measurements';
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #BaseButtonGroups
+
+    Default styles for all button groups. This should control the general
+    structure of button groups.
+
+\* ------------------------------------------------------------------------- */
+.button-group {
+    .button {
+        border-radius: 0;
+    }
+
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #ButtonGroupHorizontal
+
+    Default styles for horizontal button groups.
+
+    1. By using the .clear-floats-mixin the button-group will always have a
+        height and ensure content does not flow backwards into the group.
+    2. Remove any margin that has been applied so buttons
+    3. By default button groups should float to the left within their
+        container. This means if you want align buttons the
+        container will need to be specially aligned
+    4. Prevents button group jitter when button is active
+
+\* ------------------------------------------------------------------------- */
+.button-group--horizontal {
+    .clear-floats-mixin(); /* [1] */
+
+    .button {
+        margin-right: 0; /* [2] */
+        margin-left: 0; /* [2] */
+        .border-left-mixin(@border-width--extra-small, transparent);
+        .float-left-mixin(); /* [3] */
+    }
+
+    .button {
+        &:active,
+        &:focus {
+            + .button { /* [4] */
+                .border-left-mixin(@border-width--extra-small, @color-black)
+            }
+        }
+    }
+
+    .button:first-child {
+        .border-left-mixin(@border-width--extra-small, @color-black);
+        .border-radius-left-mixin(@border-radius);
+    }
+
+    .button:last-child {
+        .border-right-mixin(@border-width--extra-small, @color-black);
+        .border-radius-right-mixin(@border-radius);
+    }
+}

@@ -1,0 +1,220 @@
+/* ------------------------------------------------------------------------- *\
+    Button styles
+
+    1. BaseButton    ... Structural styles for all buttons
+    2. ButtonStyles  ... Visual styles for all buttons
+    3. ButtonSizes   ... Different sizings for buttons
+    4. ButtonStates  ... Styles for button states, e.g. active
+
+    Buttons are expected to be used using the base style `.button` along
+    with a modifier to give visual styling to the buttons.
+
+    Example usage:
+
+        <button class="button button--primary">Update Profile</button>
+        <a class="button button--secondary button--large">Click</a>
+
+\* ------------------------------------------------------------------------- */
+@import 'mixins/tab-focus';
+@import 'colors';
+@import 'measurements';
+@import 'mouse';
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #BaseButton
+
+    Styles found here are for defining the standard button layouts.
+    These base styles have been largely copied/modified from bootstrap:
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/mixins/buttons.less
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/buttons.less
+
+    1. Since links can be styled as buttons we must remove the underline.
+    2. Reset unusual Firefox-on-Android default style; see
+        https://github.com/necolas/normalize.css/issues/214
+    3. By default do not show a border, allow specific button types to
+        override
+    4. Buttons with long text should not explode outside their containers.
+    5. Setting style specifically because user agent style sheets override
+        the value that should cascade.
+    6. Use the button-size mixin to keep implementation consistent between
+        the button sizes and the default button.
+    7. No matter the size all buttons should have the same outer margin.
+    8. Keep the active button styles and the active button states in sync.
+
+\* ------------------------------------------------------------------------- */
+.button {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none; /* [1] */
+    vertical-align: middle;
+
+    background-image: none; /* [2] */
+    border: @border-width--extra-small solid @color-black; /* [3] */
+    border-radius: @border-radius;
+
+    touch-action: manipulation;
+    cursor: pointer;
+
+    white-space: normal; /* [4] */
+    font-size: 1rem; /* [5] */
+
+    .button-size-mixin(@padding-small, @padding-default); /* [6] */
+    margin: @margin-extra-small @margin-small; /* [7] */
+
+    &:active,
+    &:focus {
+        .button--active; /* [8] */
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+    }
+
+    &:active {
+        outline: 0;
+        background-image: none;
+        box-shadow: inset 0 .25rem .3rem rgba(0,0,0,.125);
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #ButtonStyles
+
+    These classes are used to give buttons their specific look.
+
+    Example usage:
+        <a class="button button--primary">Primary Link</a>
+
+    1. This color is tightly coupled to the color actually used
+        inside the .background-color--inverse class.
+
+\* ------------------------------------------------------------------------- */
+.button-style-mixin (@color) {
+    &:hover,
+    &:focus {
+        background-color: darken(@color, 5%);
+    }
+}
+
+.button--default {
+    background-color: @color-white;
+    .button-style-mixin(@color-white);
+}
+
+.button--primary {
+    &:extend(.background-color--primary);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-primary);
+}
+
+.button--secondary {
+    &:extend(.background-color--secondary);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-secondary);
+}
+
+.button--inverse {
+    &:extend(.background-color--inverse);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-black); /* [1] */
+}
+
+.button--success {
+    &:extend(.background-color--success);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-success);
+}
+
+.button--info {
+    &:extend(.background-color--info);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-info);
+}
+
+.button--warning {
+    &:extend(.background-color--warning);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-warning);
+}
+
+.button--critical {
+    &:extend(.background-color--critical);
+    &:extend(.text-color--inverse);
+    .button-style-mixin(@color-critical);
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #ButtonSizes
+
+    These classes are used to increase the size of a button.
+
+    Example usage:
+        <a class="button button--primary button--large">Primary Link</a>
+
+    The scale of the buttons is to half in size from the large button
+    all the way down to the extra small button. This keeps the buttons
+    looking good near each other and sizing different enough to have actual
+    use cases for different button sizes.
+
+\* ------------------------------------------------------------------------- */
+.button-size-mixin(@vertical, @horizontal) {
+    padding: @vertical @horizontal;
+}
+
+.button--large {
+    .button-size-mixin(@padding-default, @padding-large);
+}
+
+.button--small {
+    .button-size-mixin(@padding-extra-small, @padding-small);
+}
+
+.button--extra-small {
+    .button-size-mixin(@padding-extra-small, @padding-extra-small);
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #ButtonStates
+
+    These styles handle manually setting button states. If a button should
+    appear to be active then use the .button--active class.
+
+    1. Deactivated button should not indicate focus.
+    2. Deactivated button should not remove border, this value is dependent
+        on the original border color in .button
+
+\* ------------------------------------------------------------------------- */
+.button--active {
+    .tab-focus();
+    border-color: transparent;
+}
+
+.button--disabled {
+    cursor: @cursor-disabled;
+    opacity: @opacity-disabled;
+    box-shadow: none;
+
+    &:active,
+    &:focus {
+        .remove-tab-focus(); /* [1] */
+        box-shadow: none; /* [1] */
+        border-color: @color-black; /* [2] */
+    }
+}

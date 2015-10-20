@@ -1,0 +1,31 @@
+/* ------------------------------------------------------------------------- *\
+    TabFocus, these styles should be used when something is given focus.
+    For example if it is active or the focused element.
+
+    1. TabFocus ... Provides the default styles for items getting focus.
+
+\* ------------------------------------------------------------------------- */
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TabFocus
+
+    Provides the default styles for items getting focus.
+    Code used from bootstrap:
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/mixins/tab-focus.less
+
+    1. These styles are used to enhance webkit browsers.
+
+\* ------------------------------------------------------------------------- */
+.tab-focus() {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color; /* [1] */
+  outline-offset: -2px; /* [1] */
+}
+
+.remove-tab-focus() {
+  outline: none;
+}

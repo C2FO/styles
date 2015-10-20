@@ -1,0 +1,57 @@
+/* ------------------------------------------------------------------------- *\
+    Combines all styles needed to make the application look correct.
+
+    1. SiteContainer ... Contains widths for size at various viewports.
+
+\* ------------------------------------------------------------------------- */
+@import 'node_modules/grid-system/src/index';
+@import 'typography';
+@import 'colors';
+@import 'buttons';
+@import 'button-groups';
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #SiteContainer
+
+    By default the site has widths based on the given viewport once the
+    viewport is above our smallest width.
+
+    Note: this does not mean that `#site-container` _must_ be used on the
+    <body> element. In fact, the #site-container is only meant to hold the
+    main content of your site. That way as the site gets larger you could
+    have something like a help chat session on the far right on the large
+    screen size.
+
+\* ------------------------------------------------------------------------- */
+@media only screen and (max-width: @screen-xs-min) {
+    #site-container {
+        width: auto;
+    }
+}
+
+@media only screen and (min-width: @screen-xs-min) {
+    #site-container {
+        width: @screen-xs-min;
+    }
+}
+
+@media only screen and (min-width: @screen-sm-min) {
+    #site-container {
+        width: @screen-sm-min;
+    }
+}
+
+@media only screen and (min-width: @screen-md-min) {
+    #site-container {
+        width: @screen-md-min;
+    }
+}
+
+@media only screen and (min-width: @screen-lg-min) {
+    #site-container {
+        width: @screen-lg-min;
+    }
+}

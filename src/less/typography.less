@@ -1,0 +1,145 @@
+/* ------------------------------------------------------------------------- *\
+    Global styles for application.
+
+    The styles found within this file should apply to every site that
+    consumes this guide. These styles should be fairly straight forward
+    and deal with the basics of a web site. Anything more specific should
+    live within its own file.
+
+    1. Heading    ... Contains styles for all headings (used in typography)
+    2. Typography ... Contains styles for typography (e.g. font sizes)
+
+    Technical notes:
+
+    * `rem` - in general `rem` units are used to keep spacing or size aligned
+              for for the _entire_ site. This means that the spacing is only
+              based on the `html` styles and nothing else, where as the `em`
+              would get smaller and/or bigger relative to its parent
+              container.
+    * BEM   - The CSS found in this project uses the BEM methodology. This
+              leads to more modular and scalable CSS. When using this
+              project it may seem like a lot of extra CSS classes are
+              needed. This is by design and makes it obvious what something
+              is suppose to look like.
+              (e.g. <h2 class="heading heading--extra-large">Heading</h2>)
+
+\* ------------------------------------------------------------------------- */
+@import 'node_modules/grid-system/src/index';
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #Heading
+
+    Typographical styles for all headings. Later in the Typography section
+    specific versions of these headers will be "mixed" into the media
+    queries.
+
+    Possible headings:
+
+    .heading--large       ... large heading
+    .heading              ... basic heading (should be used for most cases)
+    .heading--small       ... small heading (most useful for sub-headings)
+    .heading--extra-small ... smallest heading (use sparingly)
+
+    Note: Values for `font-size` and `line-height` are gathered from the link
+    below with sensible rounded out values.
+
+\* ------------------------------------------------------------------------- */
+.heading {
+    font-size: bold;
+    font-size: 1.9rem;
+    line-height: 2.4rem;
+}
+
+.heading--large {
+    font-size: 2.4rem;
+    line-height: 3rem;
+}
+
+.heading--small {
+    font-size: 1.5rem;
+    line-height: 1.9rem;
+}
+
+.heading--extra-small {
+    font-size: 1.25rem;
+    line-height: 1.7rem;
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #Typography
+
+    These styles assume that the Google font 'Open Sans' is being used.
+    The line heights and font sizes are based heavily on the following
+    articles:
+
+    * https://ia.net/know-how/responsive-typography-the-basics
+    * https://ia.net/know-how/100e2r
+    * http://typecast.com/blog/a-more-modern-scale-for-web-typography
+    * http://www.smashingmagazine.com/2014/09/balancing-line-length-font-size-responsive-web-design/
+    * https://css-tricks.com/rems-ems/
+    * https://j.eremy.net/confused-about-rem-and-em/
+    * http://goo.gl/T6GMZJ -- example look of fonts
+
+    1. This is the base font size. All other font sizes will be relative to
+        this size. This allows for better scaling and easier to read pages.
+    2. Line height is computed form the font-size to make text easier to read.
+        in general this value will very depending on the text to read. For
+        example headings will have a smaller line height because they have
+        larger font-size. While paragraphs and flow text will have larger
+        line-height because they have smaller text.
+        Note: `rem` is used to keep _all_ line-height consistent across the
+            site.
+    3. Prevent iOS and IE text size adjust after device orientation change,
+        without disabling user zoom. See normalize.css
+    4. In order to avoid overflowing containers _all_ text should break
+        if it must to stay within its container.
+    5. Whenever the site is viewed on anything smaller than a medium sized
+        screen we should increase the base font size and decrease the
+        header sizes. This allows for a better viewing and reading
+        experience for users.
+
+\* ------------------------------------------------------------------------- */
+html {
+    font-size: 16px; /* [1] */
+    font-family: 'Open Sans', Helvetica, 'Helvetica Neue', sans-serif;
+    line-height: 1.45rem; /* [2] */
+    -webkit-text-size-adjust: 100%; /* [3] */
+        -ms-text-size-adjust: 100%; /* [3] */
+    word-wrap: break-word; /* [4] */
+}
+
+@media only screen and (max-width: @screen-md-min) { /* [5] */
+    html {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+    }
+
+    .heading {
+        font-size: bold;
+        font-size: 1.7rem;
+        line-height: 2rem;
+    }
+
+    .heading--large {
+        font-size: 1.9rem;
+        line-height: 2.4rem;
+    }
+
+    .heading--small {
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+    }
+
+    .heading--extra-small {
+        font-size: 1.2rem;
+        line-height: 1.7rem;
+    }
+}

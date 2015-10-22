@@ -1,0 +1,3 @@
+# Change the source location so jekyll only
+# serves generated documentation.
+source: ./docs

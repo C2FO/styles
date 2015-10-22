@@ -6,8 +6,8 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['**/*.*'],
-        tasks: ['less:build'],
+        files: ['docs/**/*', 'src/**/*'],
+        tasks: ['less:docs'],
         options: {
           spawn: false
         }
@@ -15,24 +15,40 @@ module.exports = function(grunt) {
     },
 
     less: {
-      build: {
+      docs: {
         options: {
           sourceMap: true,
           compress: false,
-          sourceMapFilename: 'build/css/app.css.map'
+          sourceMapFilename: 'docs/assets/css/app.css.map'
         },
         files: {
-          'build/css/app.css': 'src/less/index.less'
+          'docs/assets/css/app.css': 'src/less/index.less'
         }
+      }
+    },
+
+    shell: {
+      setup: {
+        command: [
+          'brew install ruby',
+          'gem install bundler',
+          'bundle install'
+        ].join('&&')
+      },
+      update: {
+        command: 'bundle install'
       }
     }
   });
 
-  // Load in less
+  // Load libraries
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-shell');
 
   // Default task(s).
-  grunt.registerTask('default', ['less:build', 'watch']);
+  grunt.registerTask('monitor', ['less:docs', 'watch']);
+  grunt.registerTask('setup', ['shell:setup']);
+  grunt.registerTask('update', ['shell:update']);
 
 };

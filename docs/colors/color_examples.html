@@ -1,0 +1,71 @@
+<table id="colors-table">
+    <thead>
+        <tr>
+            <th class="heading--extra-small">Color</th>
+            <th class="heading--extra-small">Example</th>
+            <th class="heading--extra-small">Hex</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>success</td>
+            <td class="background-color--success">&nbsp;</td>
+            <td class="text-color--success"></td>
+        </tr>
+        <tr>
+            <td>warning</td>
+            <td class="background-color--warning">&nbsp;</td>
+            <td class="text-color--warning"></td>
+        </tr>
+        <tr>
+            <td>info</td>
+            <td class="background-color--info">&nbsp;</td>
+            <td class="text-color--info"></td>
+        </tr>
+        <tr>
+            <td>critical</td>
+            <td class="background-color--critical">&nbsp;</td>
+            <td class="text-color--critical"></td>
+        </tr>
+        <tr>
+            <td>primary</td>
+            <td class="background-color--primary">&nbsp;</td>
+            <td class="text-color--primary"></td>
+        </tr>
+        <tr>
+            <td>secondary</td>
+            <td class="background-color--secondary">&nbsp;</td>
+            <td class="text-color--secondary"></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function colorsClosure() {
+        // the code here is used to populate the color table with the hex values
+        var elements = document.querySelectorAll('#colors-table [class^=text-color]'),
+            i, computed, values, color, rgbValues;
+
+        for (i = 0; i < elements.length; i++) {
+            computed = window.getComputedStyle(elements[i]);
+            color = computed.color;
+            rgbValues = color.replace(/rgb\(|\)| /g, '').split(',');
+            values = rgbToHex(rgbValues[0], rgbValues[1], rgbValues[2]);
+
+            elements[i].innerHTML = values;
+        }
+
+        // stolen: http://stackoverflow.com/a/5624139/1686511
+        function componentToHex(c) {
+            var hex = parseInt(c, 10).toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+    }
+
+    colorsClosure();
+</script>

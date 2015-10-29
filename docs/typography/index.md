@@ -4,16 +4,20 @@ title: UI Guide
 ---
 <h1 class="heading heading--large">Typography</h1>
 
+<p>
 This page contains examples of the various typographical
 styles defined with this UI guide.
+</p>
 
 <h2 class="heading">Headings</h2>
 
+<p>
 With the heading classes the semantic meaning of the individual
 h1-h6 can be separated from the styling applied via the classes.
 This is by design so markup can remain semantic for accessibility
 and generally good markup. Then the class can be applied to give
 a specific style within context of the consuming application.
+</p>
 
 {% include_relative headings.html %}
 

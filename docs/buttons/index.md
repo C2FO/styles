@@ -9,9 +9,11 @@ sub_nav: sub_nav/buttons.html
 <h2 class="heading" id="button-defaults">Defaults</h2>
 <button class="button button--default">I'm a button</button>
 
+<p>
 As you can see the default button has no color styles
 applied. It is expected to add a modifier class to support
 styling a button. For example: <code>.button .button--primary</code>
+</p>
 
 <h2 class="heading" id="button-types">Types</h2>
 

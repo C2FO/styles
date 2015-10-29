@@ -41,7 +41,7 @@ This does a few things:
 * Updates the output CSS as you work
 * Updates the pages so you do not need to restart the server
 
-The local site can be see at http://localhost:4000/.
+The local site can be see at http://localhost:4000/ui-guide.
 
 ### Code Style
 

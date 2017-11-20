@@ -1,0 +1,46 @@
+# Colors
+color-success: '#64b145'
+color-success-light: '#E0EFDA'
+color-warning: '#faa419'
+color-warning-light: '#FCE0D7'
+color-info: '#62b6eb'
+color-info-light: '#CCEBF5'
+color-critical: '#993121'
+color-critical-light: '#F5DAD5'
+color-black: '#333333'
+color-white: '#ffffff'
+color-gray: '#f2f2f2'
+color-gray-extra-light: '#fafafa'
+color-gray-light: '#efefef'
+color-gray-dark: '#bfbfbf'
+color-gray-darker: '#9b9b9b'
+color-primary: '#64b145'
+color-secondary: '#0099cc'
+color-border: '#eeeeee'
+color-border-dark: '#ddd'
+
+# Border
+border-radius: 3px
+border-width:  3px
+border-width--large: 5px
+border-width--small: 2px
+border-width--extra-small: 1px
+
+# Padding
+padding-large: 1.25rem
+padding-default: 1rem
+padding-small: .75rem
+padding-extra-small: .375rem
+
+# Margin
+margin-large: 1.25rem
+margin-default: 1rem
+margin-small: .75rem
+margin-extra-small: .375rem
+
+# Font
+font-large: 1.5rem
+font-default: 1rem
+font-medium: .9rem
+font-small: .8rem
+font-extra-small: .6rem

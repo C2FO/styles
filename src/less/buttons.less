@@ -19,6 +19,7 @@
 @import 'colors';
 @import 'measurements';
 @import 'mouse';
+@import 'shadows';
 
 
 
@@ -44,16 +45,20 @@
         the button sizes and the default button.
     7. No matter the size all buttons should have the same outer margin.
     8. Keep the active button styles and the active button states in sync.
+    9. Make the button "hover" above the page.
+    10. Transition for shadow.
+    11. Remove the default outline given by browsers.
 
 \* ------------------------------------------------------------------------- */
 .button {
     display: inline-block;
     text-align: center;
     text-decoration: none; /* [1] */
+    text-transform: uppercase;
     vertical-align: middle;
 
     background-image: none; /* [2] */
-    border: @border-width--extra-small solid @color-black; /* [3] */
+    border: none; /* [3] */
     border-radius: @border-radius;
 
     touch-action: manipulation;
@@ -62,24 +67,100 @@
     white-space: normal; /* [4] */
     font-size: 1rem; /* [5] */
 
+    box-shadow: @shadow-default; /* [9] */
+    transition: @shadow-raised-transition; /* [10] */
+    outline: none; /* [11] */
+
     .button-size-mixin(@padding-small, @padding-default); /* [6] */
+    .button-pulse-mixin();
     margin: @margin-extra-small @margin-small; /* [7] */
 
     &:active,
-    &:focus {
-        .button--active; /* [8] */
-    }
-
     &:hover,
     &:focus {
         text-decoration: none;
+        .button--active; /* [8] */
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #Ripple
+    These styles are needed to make the material "ripple" on click occur.
+    When consuming it will need to be extended like so:
+
+    .rippled-element {
+        &:extend(.ripple);
+
+        &:before {
+            &:extend(.ripple-before);
+
+            &:extend(.ripple-before--inverse); // only use on white backgrounds
+        }
+
+        &:active:before {
+            &:extend(.ripple-active-before);
+        }
     }
 
-    &:active {
-        outline: 0;
-        background-image: none;
-        box-shadow: inset 0 .25rem .3rem rgba(0,0,0,.125);
-    }
+    Adapted from:
+    https://github.com/mladenplavsic/css-ripple-effect/blob/master/ripple.css
+
+    The ripple style should be extended or mixed into the element that needs
+    to have a ripple effect.
+
+    1. Change positioning so we can set the :before element specifically.
+    2. Do not allow overflow, otherwise size of :before will break the page.
+    3. Makes the element actual be viewable in an :before context
+    4. Having padding and margin set when the transition happens
+        causes the :before element to grow in size which is what makes the
+        "ripple" effect. The top and left attributes are used to position
+        the epicenter of the "ripple". Use percent width measurement to
+        ensure the size of a button does not impact the ripple effect.
+    5. Makes the ripple show up, must be used with .ripple-before
+        and .ripple-active
+    6. The solid opacity and instant transition are the final touches needed
+        to produce the "ripple" effect.
+
+    Note: Recommended to mix into :before so there is less conflict with
+            font icon libraries.
+\* ------------------------------------------------------------------------- */
+.ripple {
+    position: relative; /* [1] */
+    overflow: hidden; /* [2] */
+    will-change: opacity, transform;
+}
+
+.ripple-before {
+    content: ""; /* [3] */
+    display: block; /* [3] */
+    background: rgba(255,255,255,0.3);
+    position: absolute; /* [1] */
+    border-radius: 50%;
+    top: 90%; /* [4] */
+    left: -15%; /* [4] */
+    padding-top: 250%; /* [4] */
+    padding-left: 250%; /* [4] */
+    margin-top: -100%; /* [4] */
+    margin-bottom: -100%; /* [4] */
+    opacity: 0;
+    transition: all .8s; /* [4] */
+}
+
+.ripple--inverse {
+    background: rgba(0,0,0,0.3);
+}
+
+.ripple-active-before { /* [5] */
+    padding-top: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    opacity: 1; /* [6] */
+    transition: 0s; /* [6] */
 }
 
 
@@ -96,60 +177,121 @@
 
     1. This color is tightly coupled to the color actually used
         inside the .background-color--inverse class.
+    2. Added so default a:hover and a:focus styles do not force incorrect
+       colors for links styled as buttons. This may be removed once those
+       default selectors from bootstrap are gone.
+    3. The ripple effect stops click event propogation in Safari browser.
+       This will be fixed and re-enabled in SUPP-547.
 
 \* ------------------------------------------------------------------------- */
-.button-style-mixin (@color) {
-    &:hover,
-    &:focus {
-        background-color: darken(@color, 5%);
+.button-style-default () {
+    /* [3] */
+
+    /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+
+.button-style-mixin () {
+    a&, /* [2] */
+    a&:hover,
+    a&:focus {
+        .text-color;
+    }
+    .button-style-default();
+
+    &:before {
+        /* [3] */
+        /* &:extend(.ripple--inverse); */
+    }
+}
+
+.button-style-inverse-mixin () {
+    a&, /* [2] */
+    a&:hover,
+    a&:focus {
+        .text-color--inverse;
+    }
+    .button-style-default();
+}
+
+.button-pulse-mixin () {
+    &.button--pulse {
+        animation-name: pulse_animation;
+        animation-duration: 1.5s;
+        animation-delay: 1s;
+        transform-origin: 70% 70%;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    @keyframes pulse_animation {
+        25% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.04);
+        }
+        75% {
+            transform: scale(1);
+        }
     }
 }
 
 .button--default {
     background-color: @color-white;
-    .button-style-mixin(@color-white);
+    .button-style-mixin();
+    .button-pulse-mixin();
 }
 
 .button--primary {
     &:extend(.background-color--primary);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-primary);
+    .button-style-inverse-mixin(); /* [1] */
 }
 
 .button--secondary {
     &:extend(.background-color--secondary);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-secondary);
+    .button-style-inverse-mixin();
 }
 
 .button--inverse {
     &:extend(.background-color--inverse);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-black); /* [1] */
+    .button-style-inverse-mixin();
 }
 
 .button--success {
     &:extend(.background-color--success);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-success);
+    .button-style-inverse-mixin();
 }
 
 .button--info {
     &:extend(.background-color--info);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-info);
+    .button-style-inverse-mixin();
 }
 
 .button--warning {
     &:extend(.background-color--warning);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-warning);
+    .button-style-inverse-mixin();
 }
 
 .button--critical {
     &:extend(.background-color--critical);
     &:extend(.text-color--inverse);
-    .button-style-mixin(@color-critical);
+    .button-style-inverse-mixin();
 }
 
 
@@ -176,14 +318,57 @@
 
 .button--large {
     .button-size-mixin(@padding-default, @padding-large);
+    font-size: @font-large;
 }
 
 .button--small {
     .button-size-mixin(@padding-extra-small, @padding-small);
+    font-size: @font-small;
 }
 
 .button--extra-small {
     .button-size-mixin(@padding-extra-small, @padding-extra-small);
+    font-size: @font-extra-small;
+}
+
+.button--full {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.button--centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button--icon {
+    padding: @padding-extra-small @padding-extra-small;
+    line-height: 0; /* [1] */
+}
+
+.button--material-icon {
+    line-height: normal;
+    text-indent: 0 !important;
+
+    .material-icons {
+        vertical-align: bottom;
+        font-size: 18px;
+
+    }
+}
+
+.button--flat {
+    background: transparent;
+    box-shadow: none;
+
+    &:active,
+    &:hover,
+    &:focus {
+        background: transparent;
+        box-shadow: none;
+    }
 }
 
 
@@ -202,8 +387,7 @@
 
 \* ------------------------------------------------------------------------- */
 .button--active {
-    .tab-focus();
-    border-color: transparent;
+    box-shadow: @shadow-raised;
 }
 
 .button--disabled {
@@ -212,9 +396,33 @@
     box-shadow: none;
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
         .remove-tab-focus(); /* [1] */
         box-shadow: none; /* [1] */
         border-color: @color-black; /* [2] */
+    }
+}
+
+.button-pulse-mixin () {
+    &.button--pulse {
+        animation-name: pulse_animation;
+        animation-duration: 1.5s;
+        animation-delay: 1s;
+        transform-origin: 70% 70%;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    @keyframes pulse_animation {
+        25% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.04);
+        }
+        75% {
+            transform: scale(1);
+        }
     }
 }

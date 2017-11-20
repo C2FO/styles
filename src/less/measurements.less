@@ -24,7 +24,8 @@
 \* ------------------------------------------------------------------------- */
 @border-radius: 3px; /* [1] */
 @border-width:  3px; /* [1] */
-@border-width---small: 2px; /* [1] */
+@border-width--large: 5px; /* [1] */
+@border-width--small: 2px; /* [1] */
 @border-width--extra-small: 1px; /* [1] */
 
 
@@ -38,10 +39,11 @@
     computed using rem to keep relative sizing correct.
 
 \* ------------------------------------------------------------------------- */
-@padding-large: 2.5rem;
-@padding-default: 1.25rem;
+@padding-large: 1.25rem;
+@padding-default: 1rem;
 @padding-small: .75rem;
 @padding-extra-small: .375rem;
+
 
 
 
@@ -53,8 +55,8 @@
     computed using rem to keep relative sizing correct.
 
 \* ------------------------------------------------------------------------- */
-@margin-large: 2.5rem;
-@margin-default: 1.25rem;
+@margin-large: 1.25rem;
+@margin-default: 1rem;
 @margin-small: .75rem;
 @margin-extra-small: .375rem;
 
@@ -63,10 +65,16 @@
 
 
 /* ------------------------------------------------------------------------- *\
-    #Opacity
-
-    Optional values to set for opacity. If an alpha value or opacity value
-    needs to be set it should be set to one of these constants.
-
+    #Font
+    Only allowed values for the font of elements. All values should be
+    computed using rem to keep relative sizing correct.
 \* ------------------------------------------------------------------------- */
-@opacity-disabled: .7;
+@font-large: 1.5rem;
+@font-default: 1rem;
+@font-medium: .9rem;
+@font-small: .8rem;
+@font-extra-small: .6rem; //TODO: this shouldn't be allowed, this puts us at 9px
+
+
+
+

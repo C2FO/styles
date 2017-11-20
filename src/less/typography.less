@@ -24,7 +24,6 @@
               (e.g. <h2 class="heading heading--extra-large">Heading</h2>)
 
 \* ------------------------------------------------------------------------- */
-@import 'node_modules/grid-system/src/index';
 
 
 
@@ -104,9 +103,13 @@
     5. Whenever the site is viewed on anything smaller than a medium sized
         screen we should increase the base font size and decrease the
         header sizes. This allows for a better viewing and reading
-        experience for users.
+        experience for users.  This uses the bootstrap defined md-min of 992px:
+        https://github.com/twbs/bootstrap/blob/v3.3.2/less/variables.less#L294,
+        decoupled to avoid direct dependence on bootstrap.
 
 \* ------------------------------------------------------------------------- */
+@screen-md-min: 992px; /* [5] */
+
 html {
     font-size: 16px; /* [1] */
     font-family: 'Open Sans', Helvetica, 'Helvetica Neue', sans-serif;

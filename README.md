@@ -1,5 +1,5 @@
-# ui-guide
-Code for creating frontend user interfaces.
+# @c2fo/styles
+Shared css for frontend projects
 
 
 ## Usage
@@ -14,32 +14,22 @@ should show how and when to use various parts of the ui-guide.
 
 ## Development
 
-### Prerequisites
-
+#### Get these 🙌
 * [homebrew][homebrew]
 * [nodejs][nodejs]
 
-### Setup
+#### Setup 🔧
+- `npm install`
+- `npm run setup`
 
-In order to develop within the ui-guide you'll need to run the
-below commands. They install then node dependencies as well as
-the needed libraries to run jekyll.
-
-1. `npm install`
-2. `grunt setup`
-
-### Running
-
-After you're initially setup all you need to have two windows open to run the site and get updates:
-
-1. `grunt monitor`
-2. `jekyll serve`
+### Running and watching 🏃👀
+- `npm start`
+- `npm run watch`
 
 This does a few things:
 
-* Runs the jekyll site
-* Updates the output CSS as you work
-* Updates the pages so you do not need to restart the server
+* Runs a jekyll site with live reload
+* Updates the css as you work
 
 The local site can be see at http://localhost:4000/.
 

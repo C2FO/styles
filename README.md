@@ -67,6 +67,21 @@ Yarn: `yarn add @c2fo/styles`
 
 Consumption of the package will vary depending on framework of choice, but consumers are intended to use `c2fo-styles.min.css` and the appropriate `variables.less` or `variables.scss` located in the `dist/` folder.  It is _not_ intended for you to consume the `src/` folder directly.
 
+#### Ember example (v2.16.x):
+In ember-cli-build.js:
+```js
+let app = new EmberApp(options, { /*...*/ });
+// ...
+app.import('node_modules/@c2fo/styles/dist/c2fo-styles.min.css');
+```
+Now c2fo-styles.min.css is concatenated into `my-ember-app/dist/assets/vendor.css`.
+
+Variables can be directly consumed in your `app.scss` by importing from a node_modules path:
+```scss
+@import 'node_modules/@c2fo/styles/dist/variables.scss';
+```
+
+
 ## TODO
 
 Overall project things to do are in a gist that can be found here:

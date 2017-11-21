@@ -35,7 +35,7 @@ module.exports = function(grunt) {
           compress: true,
         },
         files: {
-          'dist/c2fo-ui-guide.min.css': 'src/less/index.less'
+          'dist/c2fo-styles.min.css': 'src/less/index.less'
         }
       }
     },

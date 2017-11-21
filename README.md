@@ -46,17 +46,26 @@ The current guide used for code development:
 5. _Always_ add at least one example of your change to the example pages
 6. Make your contribution work for RTL styles
 
+Updates to styles should all be in the `src/` folder.  Right now shared styles should be written in less, which we compile down to css for distribution.
+
 ### Building for Distribution
-```sh
-grunt dist
-```
+- `npm run dist`
+
 This will build out the `dist/` folder which is used by consumers.  In addition, it builds out the preprecessor
-variables files, as described in the next section.
+variables files, as described in the next section.  Dist updates should be committed with each release as that is how the project is intended to be consumed.
 
 ### Variables
 To make the guide more preprocessor-agnostic, we include `src/variables.yml` which contains a list
 of the colors and measurements utilized in the main .less files.  This will create both `variables.less` and
-`variables.scss` files in the `dist/` folder when calling the grunt command `grunt shared_config`.  This task is executed as part of the `grunt dist` command.  These variables should _rarely_ change, but if they do, it should be updated in both the variables file as well as whichever .less file the variable lives in (`colors.less`, `measurements.less`).
+`variables.scss` files in the `dist/` folder when calling the grunt command `grunt shared_config`.  This task is executed as part of the `npm run dist` command.  These variables should _rarely_ change, but if they do, it should be updated in both the variables file as well as whichever .less file the variable lives in (`colors.less`, `measurements.less`).
+
+## Consuming
+
+### Installation and Usage
+npm: `npm install @c2fo/styles`
+Yarn: `yarn add @c2fo/styles`
+
+Consumption of the package will vary depending on framework of choice, but consumers are intended to use `c2fo-styles.min.css` and the appropriate `variables.less` or `variables.scss` located in the `dist/` folder.  It is _not_ intended for you to consume the `src/` folder directly.
 
 ## TODO
 

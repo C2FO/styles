@@ -18,6 +18,10 @@ color-primary: '#64b145'
 color-secondary: '#0099cc'
 color-border: '#eeeeee'
 color-border-dark: '#ddd'
+brand-info-light: '#21C4F3'
+brand-info: '#169cd9'
+brand-info-dark: '#145C8B'
+brand-warning: '#faa419'
 
 # Border
 border-radius: 3px

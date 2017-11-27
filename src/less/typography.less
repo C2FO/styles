@@ -93,9 +93,11 @@
         in general this value will very depending on the text to read. For
         example headings will have a smaller line height because they have
         larger font-size. While paragraphs and flow text will have larger
-        line-height because they have smaller text.
-        Note: `rem` is used to keep _all_ line-height consistent across the
-            site.
+        line-height because they have smaller text.  This line height is from
+        the bootstrap computed value and our c2fo font size value:
+        https://github.com/twbs/bootstrap/blob/v3.3.2/less/variables.less#L63
+        https://github.com/C2FO/c2fo/blob/v20.6.4/c2fo-frontend/assets/styles/_colorscheme.less#L3
+
     3. Prevent iOS and IE text size adjust after device orientation change,
         without disabling user zoom. See normalize.css
     4. In order to avoid overflowing containers _all_ text should break
@@ -109,11 +111,14 @@
 
 \* ------------------------------------------------------------------------- */
 @screen-md-min: 992px; /* [5] */
+@line-height-base: 1.428571429; /* [2] */
+@font-size-base: 13px; /* [2] */
+@line-height-computed: floor((@font-size-base * @line-height-base)); /* [2] */
 
 html {
-    font-size: 16px; /* [1] */
-    font-family: 'Open Sans', Helvetica, 'Helvetica Neue', sans-serif;
-    line-height: 1.45rem; /* [2] */
+    font-size: 13px; /* [1] */
+    font-family: 'Open Sans', Arial, sans-serif;
+    line-height: @line-height-computed; /* [2] */
     -webkit-text-size-adjust: 100%; /* [3] */
         -ms-text-size-adjust: 100%; /* [3] */
     word-wrap: break-word; /* [4] */

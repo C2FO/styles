@@ -81,6 +81,11 @@ Variables can be directly consumed in your `app.scss` by importing from a node_m
 @import 'node_modules/@c2fo/styles/dist/variables.scss';
 ```
 
+### Publishing Site
+```
+npm run publish
+```
+Run this from the up to date branch you wish to serve at the [doc site][doc-site] and this will publish it using jekyll and gh-pages.
 
 ## TODO
 
@@ -95,10 +100,9 @@ Things to cleanup as this project grows:
   * `#site-container`
 * Add developer docs (code docs may be good enough when used with the consumer docs)
 * Add sub navigation for pages like typography and colors
-* Automate the `gh-pages` bits when making the development site legit
 
 
-[doc-site]: http://c2fo.github.io/ui-guide/
+[doc-site]: http://c2fo.github.io/styles/
 [bem-naming]: http://getbem.com/naming/
 [homebrew]: http://brew.sh/
 [nodejs]: https://nodejs.org/en/download/

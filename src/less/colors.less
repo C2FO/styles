@@ -1,11 +1,12 @@
 /* ------------------------------------------------------------------------- *\
-    Colors to be used throughout. No colors should exist outside this file.
 
+    Colors to be used throughout. No colors should exist outside this file.
     1. BaseColors       ... These are for _all_ pages e.g. <p> text color
     2. StatusColors     ... Colors for showing the status
     3. ThemeColors      ... Colors for specialized content
-    4. ColorClassMixins ... Mixins for using colors (consuming colors)
-    5. ColorAssignment  ... _Only_ place where colors are actually assigned
+    4. Opacity          ... Opacity options
+    5. ColorClassMixins ... Mixins for using colors (consuming colors)
+    6. ColorAssignment  ... _Only_ place where colors are actually assigned
 
 \* ------------------------------------------------------------------------- */
 
@@ -25,8 +26,29 @@
 
 \* ------------------------------------------------------------------------- */
 @color-black: #333333; /* [1] */
-@color-white: #ffffff;
+@color-white: #ffffff; /* [1] */
 @color-gray:  #f2f2f2;
+@color-gray-extra-light: #fafafa;
+@color-gray-light: #efefef;
+@color-gray-dark:  #bfbfbf;
+@color-gray-darker: #9b9b9b;
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #BrandColors
+
+    Additional colors used in branding related to c2fo.
+
+\* ------------------------------------------------------------------------- */
+
+
+@brand-info-light: #21C4F3;
+@brand-info:    #169cd9;
+@brand-info-dark: #145C8B;
+@brand-warning: #faa419;
 
 
 
@@ -56,10 +78,17 @@
         }
 
 \* ------------------------------------------------------------------------- */
-@color-success:   #64b245;
+@color-success:   #64b145;
+@color-success-light: #E0EFDA;
+
 @color-warning:   #faa419;
-@color-info:      #169cd9;
-@color-critical:  #e57373;
+@color-warning-light: #FCE0D7;
+
+@color-info:      #62b6eb;
+@color-info-light: #CCEBF5;
+
+@color-critical:  #993121;
+@color-critical-light: #F5DAD5;
 
 
 
@@ -78,9 +107,21 @@
 
 \* ------------------------------------------------------------------------- */
 
-@color-primary:   #64B245; /* [1] */
-@color-secondary: #0099cc;
+@color-primary:   #64b145; /* [1] */
+@color-secondary: #0099cc; /* [1] */
 @color-border:    #eeeeee;
+@color-border-dark: #ddd;
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #Opacity
+    Optional values to set for opacity. If an alpha value or opacity value
+    needs to be set it should be set to one of these constants.
+\* ------------------------------------------------------------------------- */
+@opacity-disabled: .8;
 
 
 
@@ -105,14 +146,29 @@
 .text-color--success {
     color: @color-success;
 }
+.text-color--success-light {
+    color: @color-success-light;
+}
 .text-color--warning {
     color: @color-warning;
+}
+.text-color--warning-light {
+    color: @color-warning-light;
 }
 .text-color--info {
     color: @color-info;
 }
+.text-color--info-light {
+    color: @color-info-light;
+}
 .text-color--critical {
     color: @color-critical;
+}
+.text-color--critical-light {
+    color: @color-critical-light;
+}
+.text-color--disabled {
+    color: @color-gray-darker;
 }
 
 .text-color--primary {
@@ -127,21 +183,52 @@
 .text-color--inverse {
     color: @color-white;
 }
+.text-color--disabled{
+    color: @color-gray-dark;
+}
+
+.text-color--brand-info {
+    color: @brand-info;
+}
+.text-color--brand-info-light {
+    color: @brand-info-light;
+}
+.text-color--brand-info-dark {
+    color: @brand-info-dark;
+}
+.text-color--brand-info-warning {
+    color: @brand-warning;
+}
 
 .background-color {
-    background-color: @color-gray;
+    background-color: @color-gray-light;
+}
+.background-color--alt {
+    background-color: @color-white;
 }
 .background-color--success {
     background-color: @color-success;
 }
+.background-color--success-light {
+    background-color: @color-success-light;
+}
 .background-color--warning {
     background-color: @color-warning;
+}
+.background-color--warning-light {
+    background-color: @color-warning-light;
 }
 .background-color--info {
     background-color: @color-info;
 }
+.background-color--info-light {
+    background-color: @color-info-light;
+}
 .background-color--critical {
     background-color: @color-critical;
+}
+.background-color--critical-light {
+    background-color: @color-critical-light;
 }
 
 .background-color--primary {
@@ -155,6 +242,19 @@
 }
 .background-color--inverse {
     background-color: @color-black;
+}
+
+.background-color--brand-info {
+    color: @brand-info;
+}
+.background-color--brand-info-light {
+    color: @brand-info-light;
+}
+.background-color--brand-info-dark {
+    color: @brand-info-dark;
+}
+.background-color--brand-info-warning {
+    color: @brand-warning;
 }
 
 

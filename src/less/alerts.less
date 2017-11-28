@@ -1,0 +1,212 @@
+/* ------------------------------------------------------------------------- *\
+    Alert Styles
+
+    1. BaseAlert ... Structural styles for all alerts
+    2. AlertStyles ... Visual styles for all alerts
+    3. AlertActions ... Actions unique to an alert
+
+    Alerts keep users informed of important and sometimes time-sensitive changes.
+    Alerts are expected to be used using the base class `.alert` and an optional
+    alert modifier class (i.e. alert--info) for enchance styling. All alerts
+    contain an "aria-describedby" role that points to the textual content of the
+    alert. When possible, an "aria-label" or "aria-labelledby" is used for to
+    describe the summary of the alert message.
+
+
+    Reference material for aria choices: https://standards.usa.gov/alerts/
+
+    Example usage:
+        <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc">
+            <p id="dialog1Desc">This is a alert description</p>
+        </div>
+
+        <div class="alert alert--error" role="alertdialog" aria-describedby="dialog1Desc">
+            <p id="dialog1Desc">To extend your session, click the OK button</p>
+            <ul class="alert__actions">
+                <li><a href="">Continue</a></li>
+                <li><a href="">Cancel</a></li>
+            </ul>
+        </div>
+\* ------------------------------------------------------------------------- */
+@import 'measurements';
+@import 'colors';
+@import 'typography';
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #BaseAlert
+
+
+    All alerts will be described with a role atribute value of "alert" or "alertdialog"
+    if the alert contains actions (see #AlertActions).
+
+    1. Clears the floats
+    2. Align border-radius, margins, and ul, p and a tag styles with bootstrap basics.
+       Alerts are heavily inspired by bootstrap alerts,
+       https://github.com/twbs/bootstrap/blob/v3.3.2/less/alerts.less#L28,
+       but we don't want bootstrap dependencies in the style guide.
+\* ------------------------------------------------------------------------- */
+@alert-margin-bottom: 18px; /* [2] */
+@alert-border-radius: 4px; /* [2] */
+
+.alert {
+    position: relative;
+    padding: @padding-extra-small;
+    border: @border-width--extra-small solid;
+    border-radius: @alert-border-radius; /* [2] */
+    margin-bottom: @alert-margin-bottom; /* [2] */
+    background-color: @color-gray;
+    display: table;
+    width: 100%;
+
+    &:before,
+    &:after {
+        display: table-cell;
+    }
+
+    &:before {
+        font-family: FontAwesome;
+        font-size: 1rem;
+        content: "\f12a";
+        position: absolute;
+        top: 50%;
+        margin-top: -@margin-small;
+        left: @padding-extra-small;
+    }
+
+    &:after { /* [1] */
+        content: " ";
+        clear: both;
+    }
+
+    p {
+        margin: 0 0 0 @padding-default * 2; /* [2] */
+        display: inline-block;
+    }
+
+    > ul {
+      margin-bottom: 0; /* [2] */
+    }
+
+    > p + p {
+        margin-top: 5px; /* [2] */
+    }
+
+    a {
+        font-weight: bold; /* [2] */
+        text-decoration: none; /* [2] */
+        &:hover {
+            text-decoration: underline; /* [2] */
+        }
+    }
+}
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #AlertStyles
+
+    These classes are used to give alerts their specific look. If an alert is an
+    error styling then provide the aria role="alert" enhancement
+
+    Example usage:
+
+    <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc">
+        <p id="dialog1Desc">This is a alert description</p>
+    </div>
+
+\* ------------------------------------------------------------------------- */
+.alert--success {
+    .background-color--success-light();
+    border-color: @color-success;
+
+    a {
+        &:extend(.text-color--success);
+    }
+
+    &:before {
+        &:extend(.text-color--success);
+        content: "\f058";
+    }
+}
+
+.alert--info {
+    .background-color--info-light();
+    border-color: @color-info;
+
+    a {
+        &:extend(.text-color--info);
+    }
+
+    &:before {
+        &:extend(.text-color--info);
+        content: "\f05a";
+    }
+}
+
+.alert--warning {
+    .background-color--warning-light();
+    border-color: @color-warning;
+
+    a {
+        &:extend(.text-color--warning);
+    }
+
+    &:before {
+        &:extend(.text-color--warning);
+        content: "\f071";
+    }
+}
+
+.alert--critical[role="alert"],
+.alert--critical[role="alertdialog"] {
+    .background-color--critical-light();
+    border-color: @color-critical;
+
+    a {
+        &:extend(.text-color--critical);
+    }
+
+    &:before {
+        &:extend(.text-color--critical);
+        content: "\f06a";
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #AlertActions
+
+    Actions a user can perform related to the alert message.
+
+    Example Usage:
+
+    <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc" role="alertdialog">
+        <p id="dialog1Desc">To extend your session, click the OK button</p>
+        <ul class="alert__actions">
+            <li><a href="">Continue</a></li>
+            <li><a href="">Cancel</a></li>
+        </ul>
+    </div>
+
+\* ------------------------------------------------------------------------- */
+.alert__actions {
+    list-style: none;
+    float: right;
+
+    li {
+        float: left;
+        margin-left: @margin-default;
+    }
+
+    a {
+        text-transform: uppercase;
+    }
+}

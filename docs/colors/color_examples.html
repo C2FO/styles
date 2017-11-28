@@ -38,6 +38,26 @@
             <td class="background-color--secondary">&nbsp;</td>
             <td class="text-color--secondary"></td>
         </tr>
+        <tr>
+            <td>success-light</td>
+            <td class="background-color--success-light">&nbsp;</td>
+            <td class="text-color--success-light"></td>
+        </tr>
+        <tr>
+            <td>info-light</td>
+            <td class="background-color--info-light">&nbsp;</td>
+            <td class="text-color--info-light"></td>
+        </tr>
+        <tr>
+            <td>warning-light</td>
+            <td class="background-color--warning-light">&nbsp;</td>
+            <td class="text-color--warning-light"></td>
+        </tr>
+        <tr>
+            <td>critical-light</td>
+            <td class="background-color--critical-light">&nbsp;</td>
+            <td class="text-color--critical-light"></td>
+        </tr>
     </tbody>
 </table>
 
@@ -53,6 +73,8 @@
             rgbValues = color.replace(/rgb\(|\)| /g, '').split(',');
             values = rgbToHex(rgbValues[0], rgbValues[1], rgbValues[2]);
 
+            // Lighter colors don't show hex values well against background.
+            elements[i].classList = [];
             elements[i].innerHTML = values;
         }
 

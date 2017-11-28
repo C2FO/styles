@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Button Groups
+title: C2FO UI Guide -- Button Groups
 ---
 <h1 class="heading heading--large">Button Groups</h1>
 

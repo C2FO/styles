@@ -1,5 +1,5 @@
-# ui-guide
-Code for creating frontend user interfaces.
+# @c2fo/styles
+Shared css for frontend projects
 
 
 ## Usage
@@ -14,32 +14,22 @@ should show how and when to use various parts of the ui-guide.
 
 ## Development
 
-### Prerequisites
-
+#### Get these 🙌
 * [homebrew][homebrew]
 * [nodejs][nodejs]
 
-### Setup
+#### Setup 🔧
+- `npm install`
+- `npm run setup`
 
-In order to develop within the ui-guide you'll need to run the
-below commands. They install then node dependencies as well as
-the needed libraries to run jekyll.
-
-1. `npm install`
-2. `grunt setup`
-
-### Running
-
-After you're initially setup all you need to have two windows open to run the site and get updates:
-
-1. `grunt monitor`
-2. `jekyll serve`
+### Running and watching 🏃👀
+- `npm start`
+- `npm run watch`
 
 This does a few things:
 
-* Runs the jekyll site
-* Updates the output CSS as you work
-* Updates the pages so you do not need to restart the server
+* Runs a jekyll site with live reload
+* Updates the css as you work
 
 The local site can be see at http://localhost:4000/.
 
@@ -55,6 +45,41 @@ The current guide used for code development:
 4. Follow the http://cssguidelin.es/ when writing code, see existing code for examples
 5. _Always_ add at least one example of your change to the example pages
 6. Make your contribution work for RTL styles
+
+Updates to styles should all be in the `src/` folder.  Right now shared styles should be written in less, which we compile down to css for distribution.
+
+### Building for Distribution
+- `npm run dist`
+
+This will build out the `dist/` folder which is used by consumers.  In addition, it builds out the preprecessor
+variables files, as described in the next section.  Dist updates should be committed with each release as that is how the project is intended to be consumed.
+
+### Variables
+To make the guide more preprocessor-agnostic, we include `src/variables.yml` which contains a list
+of the colors and measurements utilized in the main .less files.  This will create both `variables.less` and
+`variables.scss` files in the `dist/` folder when calling the grunt command `grunt shared_config`.  This task is executed as part of the `npm run dist` command.  These variables should _rarely_ change, but if they do, it should be updated in both the variables file as well as whichever .less file the variable lives in (`colors.less`, `measurements.less`).
+
+## Consuming
+
+### Installation and Usage
+npm: `npm install @c2fo/styles`
+Yarn: `yarn add @c2fo/styles`
+
+Consumption of the package will vary depending on framework of choice, but consumers are intended to use `c2fo-styles.min.css` and the appropriate `variables.less` or `variables.scss` located in the `dist/` folder.  It is _not_ intended for you to consume the `src/` folder directly.
+
+#### Ember example (v2.16.x):
+In ember-cli-build.js:
+```js
+let app = new EmberApp(options, { /*...*/ });
+// ...
+app.import('node_modules/@c2fo/styles/dist/c2fo-styles.min.css');
+```
+Now c2fo-styles.min.css is concatenated into `my-ember-app/dist/assets/vendor.css`.
+
+Variables can be directly consumed in your `app.scss` by importing from a node_modules path:
+```scss
+@import 'node_modules/@c2fo/styles/dist/variables.scss';
+```
 
 
 ## TODO

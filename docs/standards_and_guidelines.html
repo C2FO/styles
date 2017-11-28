@@ -1,0 +1,228 @@
+
+<section>
+    <h1 class="heading">Coding Standards and Guidelines</h1>
+
+    <p>
+    As applications evolve over time they will look different and likely
+    preform different functions. However, at the core their code should not
+    evolve too much. By following a set of standards and code guidelines
+    a code base will have longevity and maintainability.
+
+    Below you'll see guidelines on how to contribute to this project. These
+    guidelines are also recommended for any application. Primarily the
+    suggestions you see here are an accumulation of existing standards and
+    best practices for creating great applications.
+    </p>
+
+
+    <article>
+        <h1 class="heading heading--small">Philosophy</h1>
+
+        <p>
+        Before getting into the lower level coding recommendations we'll define
+        what this project expects for <em>all</em> of its code. Composition is king.
+        </p>
+
+        <ul class="list">
+            <li>Containers do not assume content</li>
+            <li>CSS for looks is separate from CSS for layout</li>
+            <li>CSS should be semantic</li>
+            <li>Avoid utility classes in markup</li>
+        </ul>
+
+        <h2 class="heading heading--extra-small">Containers and Content</h2>
+
+        <p>
+        By building containers that <em>do not</em> assume their contents it allows for
+        greater flexibility. For instance, a column grid
+        component usually pads in the inner content. Depending on the usage of
+        the grid this "gutter" may not be desired. To overcome this developers
+        usually have to add negative margin to their inner children to overcome
+        the assumptions made by a container.
+        </p>
+
+        <p>
+        Another reason for containers to not assume content is around composition.
+        It is much easier to build up quality user interactions when the components
+        are easily mixed together. As soon as containers assume what is inside, the
+        ability to easily compose components into larger components goes away.
+        </p>
+
+
+        <h2 class="heading heading--extra-small">Separate Layout and Looks</h2>
+
+        <p>
+        CSS is used for both layout and looks via styles. However, when building reusable
+        and scalable CSS it is best to separate classes that are the core layout
+        of a component and the classes that give looks to the component.
+        </p>
+
+        <p>
+        For example a <code>button</code> class should give the structure of a
+        button. In order to enhance the button to look a certain way a class
+        for looks should be added, for example <code>button--primary</code>.
+        </p>
+
+        <p>
+        These recommendations relate back to composition. By having a clean
+        separation it is easy to compose different variations of a core
+        component without having to rely on a lot of complex overrides.
+        </p>
+
+
+        <h2 class="heading heading--extra-small">Semantics</h2>
+
+        <p>
+        CSS must be semantic. This leads to easier to maintain code
+        and code that can grow. A good example here relates to colors and
+        alerts. It would be a bad idea to create a class <code>color-red</code>.
+        A much better choice is <code>color-alert--critical</code>.
+        </p>
+
+        <p>
+        Semantics allow for the lower level color to change and keep the meaning
+        in the code.
+        </p>
+
+
+        <h2 class="heading heading--extra-small">Utility Classes</h2>
+
+        <p>
+        Avoid creating and using utility classes. At first glance it may seem
+        okay to add a "remove all margin" class or a "no left padding" class.
+        However, these types of classes usually highlight a flaw in the existing
+        components. The question to ask is "why do I need this one-off change?"
+        </p>
+
+        <p>
+        There will be cases that a utility class is needed, however, these classes
+        should be mixed into a more semantic class. For example, if an article on
+        a page needs to remove the left padding give that a better name for the
+        specific type of article that needs to remove that padding. Maybe the
+        article is picture heavy, give it class name of <code>article--picture-heavy</code>.
+        </p>
+
+    </article>
+
+
+
+    <article>
+        <h1 class="heading heading--small">CSS Details</h1>
+
+        <p>
+        At low level it is good to have constraints in
+        place. <a href="https://en.wikipedia.org/wiki/Theory_of_constraints">Constraint theory</a>
+        tells us that having some level of control in a system helps increase
+        the throughput and maintainability of the system.
+        </p>
+
+        <p>
+        At a high level here is how to write the CSS.
+        </p>
+
+        <ul class="list">
+            <li><a href="http://cssguidelin.es/">CSSGuidelines</a></li>
+            <li><a href="http://getbem.com/naming/">BEM</a></li>
+            <li>Avoid styling HTML elements directly</li>
+            <li>Limit selector specificity</li>
+            <li>Use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units"><code>rem</code></a> units</li>
+            <li>Favor using extends over mixins to reduce CSS rules</li>
+        </ul>
+
+
+        <h2 class="heading heading--extra-small">Writing Code: BEM and CSSGuidelines</h2>
+
+        <p>
+        The code should follow the ideals described
+        in the <a href="http://cssguidelin.es/">http://cssguidelin.es/</a>. Some specifics to call out:
+        </p>
+
+        <ul class="list">
+            <li><a href="http://cssguidelin.es/#low-level">Reverse footnote commenting</a></li>
+            <li><a href="http://cssguidelin.es/#titling">Tilting</a></li>
+            <li><a href="http://cssguidelin.es/#meaningful-whitespace">Meaningful whitespace</a></li>
+            <li><a href="http://cssguidelin.es/#css-selectors">CSS selectors</a></li>
+            <li><a href="http://cssguidelin.es/#the-single-responsibility-principle">Single responsibility principle</a></li>
+            <li><a href="http://getbem.com/naming/">BEM naming</a></li>
+        </ul>
+
+        <p>
+        There are two rules that we do not follow. Do not add extra space for BEM elements
+        and modifiers. Favor using extends in LESS over having a lot of CSS rules that
+        get complied out.
+        </p>
+
+
+        <h2 class="heading heading--extra-small">rem Units</h2>
+
+        <p>
+        When building out components most measurements should favor using <code>rem</code> units.
+        The exceptions to this rule are parts that <em>should not</em> scale. For example a border width
+        should not grow or shrink based on screen resolution.
+        </p>
+
+        <p>
+        <code>rem</code> units are used because it provides a consistent and constant way to
+        apply measurements to components. The largest reason to use <code>rem</code> units
+        is to keep the proportions between typography and components inline. Measurements
+        should be based in typography. Since typographical elements are the base
+        of design they should be used to build out the rest of the application.
+        </p>
+
+    </article>
+
+
+    <article>
+        <h1 class="heading heading--small">Components</h1>
+
+        <p>
+        Components are the smallest unit developed and consumed by this ui guide.
+        Rules for developing components:
+        </p>
+
+        <ul class="list">
+            <li><em>Only</em> apply margin and padding to components</li>
+            <li>Margin and padding is built off of <code>rem</code> units</li>
+            <li>Must support RTL and LTR</li>
+            <li>Only have 4 sizes: large, default, small, and extra-small (all 4 not required)</li>
+            <li>Must be documented for consumption</li>
+        </ul>
+    </article>
+
+</section>
+
+<section>
+    <article>
+        <h1 class="heading">Code Location</h1>
+
+        <p>
+            For the most part file names are fairly self explanatory on what lives with them.
+            For example, the file called
+            <code>buttons.less</code> holds the code for the
+            button components. For more reused parts here are some files and what can
+            be found within them:
+        </p>
+
+        <dl>
+            <dt><code>colors.less</code></dt>
+            <dd>The base colors for the site. See individual file for further explanation</dd>
+            <dt><code>measurements.less</code></dt>
+            <dd>Base values for widths and heights (e.g. margin, padding, borders).</dd>
+            <dt><code>mouse.less</code></dt>
+            <dd>Contains values for the mouse on screen.</dd>
+            <dt><code>typography.less</code></dt>
+            <dd>Contains basic site wide settings for text display</dd>
+        </dl>
+    </article>
+    <article>
+        <h1 class="heading">Adding Docs</h1>
+
+        <p>
+            To make adding documentation easier it is recommended to use this tool to create the escaped HTML.
+            <a href="http://www.freeformatter.com/html-escape.html#ad-output">http://www.freeformatter.com/html-escape.html#ad-output</a>
+            Once you have that tool write your HTML as you would normally and then copy paste it into the tool.
+            Use the output inside code blocks to show what you've done. A recommendation for making that easy
+            is to use column selection in your editor. See the button documentation for examples.
+        </p>
+    </article>
+</section>

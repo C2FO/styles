@@ -23,6 +23,7 @@
     "setup": "grunt setup",
     "start": "jekyll serve",
     "watch": "grunt monitor",
-    "dist": "grunt dist"
+    "dist": "grunt dist",
+    "publish_site": "grunt publish"
   }
 }

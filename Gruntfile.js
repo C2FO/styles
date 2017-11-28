@@ -50,6 +50,20 @@ module.exports = function(grunt) {
       },
       update: {
         command: 'bundle install'
+      },
+      // The zzz characters are used to help reduce the odds of a name collision.
+      publish: {
+        command: [
+          'UI_GUIDE_ZZZ_CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`',
+          'git checkout -b zzz-publishing-branch',
+          'cp -R docs/* .',
+          'git add .',
+          'git commit --no-verify -m "automated commit for publishing"',
+          'git push origin zzz-publishing-branch:gh-pages --force',
+          'git checkout $UI_GUIDE_ZZZ_CURRENT_BRANCH',
+          'unset UI_GUIDE_ZZZ_CURRENT_BRANCH',
+          'git branch -D zzz-publishing-branch'
+        ].join('&&')
       }
     },
 
@@ -77,6 +91,7 @@ module.exports = function(grunt) {
   grunt.registerTask('monitor', ['less:docs', 'watch']);
   grunt.registerTask('setup', ['shell:setup']);
   grunt.registerTask('update', ['shell:update']);
+  grunt.registerTask('publish', ['shell:publish']);
   grunt.registerTask('dist', ['shared_config', 'less:dist']);
 
 };

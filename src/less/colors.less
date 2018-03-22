@@ -43,12 +43,22 @@
     Additional colors used in branding related to c2fo.
 
 \* ------------------------------------------------------------------------- */
+@c2fo-green: #64B145;
+@c2fo-red: #993121;
+@c2fo-blue: #147798;
+@c2fo-orange: #f69844;
+@c2fo-gray-light: #EFEFEF;
+@c2fo-gray-medium: #777777;
+@c2fo-gray-dark: #333333;
+@c2fo-page-background: #F0F4F7;
 
-
-@brand-info-light: #21C4F3;
-@brand-info:    #169cd9;
-@brand-info-dark: #145C8B;
+@brand-primary: @c2fo-green;
+@brand-success: @brand-primary;
+@brand-info-light: @c2fo-blue;
+@brand-info:    #003D52;
+@brand-info-dark: #003D52;
 @brand-warning: #faa419;
+@brand-danger:  @c2fo-red;
 
 
 
@@ -87,7 +97,7 @@
 @color-info:      #62b6eb;
 @color-info-light: #CCEBF5;
 
-@color-critical:  #993121;
+@color-critical:  #ca3131;
 @color-critical-light: #F5DAD5;
 
 
@@ -107,10 +117,11 @@
 
 \* ------------------------------------------------------------------------- */
 
-@color-primary:   #64b145; /* [1] */
-@color-secondary: #0099cc; /* [1] */
-@color-border:    #eeeeee;
-@color-border-dark: #ddd;
+@color-primary:   #589B3C; /* [1] */
+@color-secondary: @brand-info-dark; /* [1] */
+@color-tertiary:   #f4892e;
+@color-border:    #ededef;
+@color-border-dark: #ededef;
 
 
 
@@ -201,7 +212,7 @@
 }
 
 .background-color {
-    background-color: @color-gray-light;
+    background-color: @c2fo-page-background;
 }
 .background-color--alt {
     background-color: @color-white;

@@ -3,7 +3,7 @@ layout: default
 title: C2FO UI Guide -- Tables
 ---
 <h1 class="heading heading--large">Tables</h1>
-<p>Tables may use the <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> tags.  See examples below for how to style tables</p>
+<p>See examples below for how to style tables</p>
 
 <h2 class="heading" id="tables-default">Defaults</h2>
 {% include_relative tables_default.html %}

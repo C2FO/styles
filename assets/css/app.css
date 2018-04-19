@@ -1,0 +1,2087 @@
+/* ------------------------------------------------------------------------- *\
+    Combines all styles needed to make the application look correct.
+
+    1. SiteContainer ... Contains widths for size at various viewports.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    Global styles for application.
+
+    The styles found within this file should apply to every site that
+    consumes this guide. These styles should be fairly straight forward
+    and deal with the basics of a web site. Anything more specific should
+    live within its own file.
+
+    1. Heading    ... Contains styles for all headings (used in typography)
+    2. Typography ... Contains styles for typography (e.g. font sizes)
+
+    Technical notes:
+
+    * `rem` - in general `rem` units are used to keep spacing or size aligned
+              for for the _entire_ site. This means that the spacing is only
+              based on the `html` styles and nothing else, where as the `em`
+              would get smaller and/or bigger relative to its parent
+              container.
+    * BEM   - The CSS found in this project uses the BEM methodology. This
+              leads to more modular and scalable CSS. When using this
+              project it may seem like a lot of extra CSS classes are
+              needed. This is by design and makes it obvious what something
+              is suppose to look like.
+              (e.g. <h2 class="heading heading--extra-large">Heading</h2>)
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Heading
+
+    Typographical styles for all headings. Later in the Typography section
+    specific versions of these headers will be "mixed" into the media
+    queries.
+
+    Possible headings:
+
+    .heading--large       ... large heading
+    .heading              ... basic heading (should be used for most cases)
+    .heading--small       ... small heading (most useful for sub-headings)
+    .heading--extra-small ... smallest heading (use sparingly)
+
+    Note: Values for `font-size` and `line-height` are gathered from the link
+    below with sensible rounded out values.
+
+\* ------------------------------------------------------------------------- */
+.heading {
+  font-size: bold;
+  font-size: 1.9rem;
+  line-height: 2.4rem;
+}
+.heading--large {
+  font-size: 2.4rem;
+  line-height: 3rem;
+}
+.heading--small {
+  font-size: 1.5rem;
+  line-height: 1.9rem;
+}
+.heading--extra-small {
+  font-size: 1.25rem;
+  line-height: 1.7rem;
+}
+/* ------------------------------------------------------------------------- *\
+    #Typography
+
+    These styles assume that the Google font 'Open Sans' is being used.
+    The line heights and font sizes are based heavily on the following
+    articles:
+
+    * https://ia.net/know-how/responsive-typography-the-basics
+    * https://ia.net/know-how/100e2r
+    * http://typecast.com/blog/a-more-modern-scale-for-web-typography
+    * http://www.smashingmagazine.com/2014/09/balancing-line-length-font-size-responsive-web-design/
+    * https://css-tricks.com/rems-ems/
+    * https://j.eremy.net/confused-about-rem-and-em/
+    * http://goo.gl/T6GMZJ -- example look of fonts
+
+    1. This is the base font size. All other font sizes will be relative to
+        this size. This allows for better scaling and easier to read pages.
+    2. Line height is computed form the font-size to make text easier to read.
+        in general this value will very depending on the text to read. For
+        example headings will have a smaller line height because they have
+        larger font-size. While paragraphs and flow text will have larger
+        line-height because they have smaller text.  This line height is from
+        the bootstrap computed value and our c2fo font size value:
+        https://github.com/twbs/bootstrap/blob/v3.3.2/less/variables.less#L63
+        https://github.com/C2FO/c2fo/blob/v20.6.4/c2fo-frontend/assets/styles/_colorscheme.less#L3
+
+    3. Prevent iOS and IE text size adjust after device orientation change,
+        without disabling user zoom. See normalize.css
+    4. In order to avoid overflowing containers _all_ text should break
+        if it must to stay within its container.
+    5. Whenever the site is viewed on anything smaller than a medium sized
+        screen we should increase the base font size and decrease the
+        header sizes. This allows for a better viewing and reading
+        experience for users.  This uses the bootstrap defined md-min of 992px:
+        https://github.com/twbs/bootstrap/blob/v3.3.2/less/variables.less#L294,
+        decoupled to avoid direct dependence on bootstrap.
+    7. Because current c2fo styles set a differing font size and line-height on
+       html and body, we need to account for both to compute REM units the same
+       way c2fo early pay does.
+       -WHEN TO REMOVE-: when we achieve one source of truth for
+         font-size for the site.
+
+\* ------------------------------------------------------------------------- */
+/* [5] */
+/* [2] */
+/* [2] */
+/* [2] */
+html {
+  font-size: 16px;
+  /* [1] */
+  line-height: 1.45rem;
+  /* [2] */
+  font-family: 'Open Sans', Arial, sans-serif;
+  line-height: 18px;
+  /* [2] */
+  -webkit-text-size-adjust: 100%;
+  /* [3] */
+  -ms-text-size-adjust: 100%;
+  /* [3] */
+  word-wrap: break-word;
+  /* [4] */
+}
+body {
+  font-size: 13px;
+  /* [7] */
+  line-height: 18px;
+  /* [7] */
+}
+@media only screen and (max-width: 992px) {
+  /* [5] */
+  html {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+  }
+  .heading {
+    font-weight: bold;
+    font-size: 1.7rem;
+    line-height: 2rem;
+  }
+  .heading--large {
+    font-size: 1.9rem;
+    line-height: 2.4rem;
+  }
+  .heading--small {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+  .heading--extra-small {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+}
+/* ------------------------------------------------------------------------- *\
+    Measurements to be reused by components.
+
+    1. Border  ... Contains measurements for borders
+    2. Padding ... Default padding sizes
+    3. Margin  ... Default margin sizes
+    4. Opacity ... Default opacity options
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Border
+
+    These values should be used for the widths and rounding of borders.
+    Any values needed for border "wideness" should be placed in this section.
+
+    1. Using px instead of rem because the size of the border should be the
+        same regardless of font size.
+
+\* ------------------------------------------------------------------------- */
+/* [1] */
+/* [1] */
+/* [1] */
+/* [1] */
+/* [1] */
+/* ------------------------------------------------------------------------- *\
+    #Padding
+
+    Only allowed values for the padding of elements. All values should be
+    computed using rem to keep relative sizing correct.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Margin
+
+    Only allowed values for the margin of elements. All values should be
+    computed using rem to keep relative sizing correct.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Font
+    Only allowed values for the font of elements. All values should be
+    computed using rem to keep relative sizing correct.
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+
+    Colors to be used throughout. No colors should exist outside this file.
+    1. BaseColors       ... These are for _all_ pages e.g. <p> text color
+    2. StatusColors     ... Colors for showing the status
+    3. ThemeColors      ... Colors for specialized content
+    4. Opacity          ... Opacity options
+    5. ColorClassMixins ... Mixins for using colors (consuming colors)
+    6. ColorAssignment  ... _Only_ place where colors are actually assigned
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #BaseColors
+
+    These colors are the basis of all applications. These values should be
+    fairly standard and not changed often. Ideally these values are used
+    far less frequently than the better named and more semantic StatusColors
+    and ThemColors.
+
+    1. Using an 'off-black' to limit the harsh contrast of a true #fff on #000
+
+\* ------------------------------------------------------------------------- */
+/* [1] */
+/* [1] */
+/* ------------------------------------------------------------------------- *\
+    #BrandColors
+
+    Additional colors used in branding related to c2fo.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #StatusColors
+
+    These colors should be used to indicate how something is doing. For
+    example you may use some of these colors to show that something is
+    activated or successful.
+
+    The intent of these colors is to be used as variables within a mixin via
+    using :extend(.color-mixin) that way we have less CSS rules created.
+    The selector count will be the same eitherway. Since we are using a
+    preprocessor we'll be able to read what the intent as well as produce
+    better CSS.
+
+    Example Usage:
+
+        .color-background--success {
+            background-color: @color-success;
+        }
+
+        .panel__heading--success {
+            &.extend(.color-background--success);
+        }
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #ThemeColors
+
+    These colors are here for specific styles. These colors should be used
+    for most things like buttons, disabled inputs, and other parts of the
+    site that need common colors that do not necessarily convey meaning
+    on their own like the StatusColors above.
+
+    1. It is a coincidence that success and brand are the same values.
+        These should not be set to each other, but independently set.
+
+\* ------------------------------------------------------------------------- */
+/* [1] */
+/* [1] */
+/* ------------------------------------------------------------------------- *\
+    #Opacity
+    Optional values to set for opacity. If an alpha value or opacity value
+    needs to be set it should be set to one of these constants.
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #ColorClassMixins
+
+    These mixins should be used by various components to get actual styles.
+    They can be used on their own as dedicated classes, however, it is
+    preferred for these to be extended in less.
+
+    Example:
+        .footer--info {
+            &:.extend(.text-color--primary);
+            &:.extend(.background-color--info);
+        }
+\* ------------------------------------------------------------------------- */
+.text-color,
+html {
+  color: #333333;
+}
+.text-color--success,
+.alert--success a,
+.alert--success:before {
+  color: #64b145;
+}
+.text-color--success-light {
+  color: #E0EFDA;
+}
+.text-color--warning,
+.alert--warning a,
+.alert--warning:before {
+  color: #faa419;
+}
+.text-color--warning-light {
+  color: #FCE0D7;
+}
+.text-color--info,
+.alert--info a,
+.alert--info:before {
+  color: #62b6eb;
+}
+.text-color--info-light {
+  color: #CCEBF5;
+}
+.text-color--critical,
+.alert--critical[role="alert"] a,
+.alert--critical[role="alertdialog"] a,
+.alert--critical[role="alert"]:before,
+.alert--critical[role="alertdialog"]:before {
+  color: #ca3131;
+}
+.text-color--critical-light {
+  color: #F5DAD5;
+}
+.text-color--disabled {
+  color: #9b9b9b;
+}
+.text-color--primary {
+  color: #589B3C;
+}
+.text-color--secondary {
+  color: #004467;
+}
+.text-color--border {
+  color: #ededef;
+}
+.text-color--inverse,
+.button--primary,
+.button--secondary,
+.button--inverse,
+.button--success,
+.button--info,
+.button--warning,
+.button--critical {
+  color: #ffffff;
+}
+.text-color--disabled {
+  color: #bfbfbf;
+}
+.text-color--brand-info {
+  color: #004467;
+}
+.text-color--brand-info-light {
+  color: #147798;
+}
+.text-color--brand-info-dark {
+  color: #004467;
+}
+.text-color--brand-info-warning {
+  color: #faa419;
+}
+.background-color,
+html {
+  background-color: #F0F4F7;
+}
+.background-color--alt {
+  background-color: #ffffff;
+}
+.background-color--success,
+.button--success {
+  background-color: #64b145;
+}
+.background-color--success-light {
+  background-color: #E0EFDA;
+}
+.background-color--warning,
+.button--warning {
+  background-color: #faa419;
+}
+.background-color--warning-light {
+  background-color: #FCE0D7;
+}
+.background-color--info,
+.button--info {
+  background-color: #62b6eb;
+}
+.background-color--info-light {
+  background-color: #CCEBF5;
+}
+.background-color--critical,
+.button--critical {
+  background-color: #ca3131;
+}
+.background-color--critical-light {
+  background-color: #F5DAD5;
+}
+.background-color--primary,
+.button--primary {
+  background-color: #589B3C;
+}
+.background-color--secondary,
+.button--secondary {
+  background-color: #004467;
+}
+.background-color--border {
+  background-color: #ededef;
+}
+.background-color--inverse,
+.button--inverse {
+  background-color: #333333;
+}
+.background-color--brand-info {
+  color: #004467;
+}
+.background-color--brand-info-light {
+  color: #147798;
+}
+.background-color--brand-info-dark {
+  color: #004467;
+}
+.background-color--brand-info-warning {
+  color: #faa419;
+}
+/* ------------------------------------------------------------------------- *\
+    #ColorAssignment
+
+    This is the actual assignment of the default colors for the application.
+    Colors should only be assigned to specific classes and elements directly
+    within this code section.
+
+    1. This is a deliberate decision to make the default background for
+        all elements be this color. This is done to help avoid stark contrast
+        on pages with text.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    Styles related to interactions with the mouse.
+
+    1. Cursors ... various states for cursors
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Cursors
+
+    Constants for cursors. These constants exist so it is easy to share the
+    same concept across different types of components.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    Animations
+    Adding pizazz with these
+
+\* ------------------------------------------------------------------------- */
+.loading-gear-spin {
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.fade-in {
+  transition: .5s linear all;
+  opacity: 1;
+}
+.fade-in.ng-hide {
+  opacity: 0;
+}
+/* ------------------------------------------------------------------------- *\
+    Button styles
+
+    1. BaseButton    ... Structural styles for all buttons
+    2. ButtonStyles  ... Visual styles for all buttons
+    3. ButtonSizes   ... Different sizings for buttons
+    4. ButtonStates  ... Styles for button states, e.g. active
+
+    Buttons are expected to be used using the base style `.button` along
+    with a modifier to give visual styling to the buttons.
+
+    Example usage:
+
+        <button class="button button--primary">Update Profile</button>
+        <a class="button button--secondary button--large">Click</a>
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    TabFocus, these styles should be used when something is given focus.
+    For example if it is active or the focused element.
+
+    1. TabFocus ... Provides the default styles for items getting focus.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #TabFocus
+
+    Provides the default styles for items getting focus.
+    Code used from bootstrap:
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/mixins/tab-focus.less
+
+    1. These styles are used to enhance webkit browsers.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #Shadows
+    Shadows that match material design.
+
+    1. The default state is for items at rest or highlighting items that
+        previously had no shadow.
+    2. Raised shadow to show feedback for things like a hover state.
+    3. Transition raised state is to highlight items that have the default shadow.
+\* ------------------------------------------------------------------------- */
+/* [1] */
+/* [2] */
+/* [3] */
+/* ------------------------------------------------------------------------- *\
+    #BaseButton
+
+    Styles found here are for defining the standard button layouts.
+    These base styles have been largely copied/modified from bootstrap:
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/mixins/buttons.less
+    https://github.com/twbs/bootstrap/blob/v3.3.5/less/buttons.less
+
+    1. Since links can be styled as buttons we must remove the underline.
+    2. Reset unusual Firefox-on-Android default style; see
+        https://github.com/necolas/normalize.css/issues/214
+    3. By default do not show a border, allow specific button types to
+        override
+    4. Buttons with long text should not explode outside their containers.
+    5. Setting style specifically because user agent style sheets override
+        the value that should cascade.
+    6. Use the button-size mixin to keep implementation consistent between
+        the button sizes and the default button.
+    7. No matter the size all buttons should have the same outer margin.
+    8. Keep the active button styles and the active button states in sync.
+    9. Make the button "hover" above the page.
+    10. Transition for shadow.
+    11. Remove the default outline given by browsers.
+    12. Match offset on right created by letter spacing.
+
+\* ------------------------------------------------------------------------- */
+.button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  /* [1] */
+  text-transform: uppercase;
+  vertical-align: middle;
+  background-image: none;
+  /* [2] */
+  border: none;
+  /* [3] */
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  touch-action: manipulation;
+  cursor: pointer;
+  white-space: normal;
+  /* [4] */
+  font-size: 1rem;
+  /* [5] */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* [9] */
+  transition: box-shadow 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* [10] */
+  outline: none;
+  /* [11] */
+  padding: 0.75rem 1rem;
+  /* [6] */
+  margin: 0.375rem 0.75rem;
+  /* [7] */
+}
+.button.button--pulse {
+  animation-name: pulse_animation;
+  animation-duration: 1.5s;
+  animation-delay: 1s;
+  transform-origin: 70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes pulse_animation {
+  25% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  75% {
+    transform: scale(1);
+  }
+}
+.button.button--pulse {
+  animation-name: pulse_animation;
+  animation-duration: 1.5s;
+  animation-delay: 1s;
+  transform-origin: 70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes pulse_animation {
+  25% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  75% {
+    transform: scale(1);
+  }
+}
+.button:active,
+.button:hover,
+.button:focus {
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  /* [8] */
+}
+.button > span,
+.button > t,
+.button > i {
+  margin-left: 1px;
+  /* [12] */
+}
+/* ------------------------------------------------------------------------- *\
+    #Ripple
+    These styles are needed to make the material "ripple" on click occur.
+    When consuming it will need to be extended like so:
+
+    .rippled-element {
+        &:extend(.ripple);
+
+        &:before {
+            &:extend(.ripple-before);
+
+            &:extend(.ripple-before--inverse); // only use on white backgrounds
+        }
+
+        &:active:before {
+            &:extend(.ripple-active-before);
+        }
+    }
+
+    Adapted from:
+    https://github.com/mladenplavsic/css-ripple-effect/blob/master/ripple.css
+
+    The ripple style should be extended or mixed into the element that needs
+    to have a ripple effect.
+
+    1. Change positioning so we can set the :before element specifically.
+    2. Do not allow overflow, otherwise size of :before will break the page.
+    3. Makes the element actual be viewable in an :before context
+    4. Having padding and margin set when the transition happens
+        causes the :before element to grow in size which is what makes the
+        "ripple" effect. The top and left attributes are used to position
+        the epicenter of the "ripple". Use percent width measurement to
+        ensure the size of a button does not impact the ripple effect.
+    5. Makes the ripple show up, must be used with .ripple-before
+        and .ripple-active
+    6. The solid opacity and instant transition are the final touches needed
+        to produce the "ripple" effect.
+
+    Note: Recommended to mix into :before so there is less conflict with
+            font icon libraries.
+\* ------------------------------------------------------------------------- */
+.ripple {
+  position: relative;
+  /* [1] */
+  overflow: hidden;
+  /* [2] */
+  will-change: opacity, transform;
+}
+.ripple-before {
+  content: "";
+  /* [3] */
+  display: block;
+  /* [3] */
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  /* [1] */
+  border-radius: 50%;
+  top: 90%;
+  /* [4] */
+  left: -15%;
+  /* [4] */
+  padding-top: 250%;
+  /* [4] */
+  padding-left: 250%;
+  /* [4] */
+  margin-top: -100%;
+  /* [4] */
+  margin-bottom: -100%;
+  /* [4] */
+  opacity: 0;
+  transition: all .8s;
+  /* [4] */
+}
+.ripple--inverse {
+  background: rgba(0, 0, 0, 0.3);
+}
+.ripple-active-before {
+  /* [5] */
+  padding-top: 0;
+  padding-left: 0;
+  margin-top: 0;
+  margin-left: 0;
+  opacity: 1;
+  /* [6] */
+  transition: 0s;
+  /* [6] */
+}
+/* ------------------------------------------------------------------------- *\
+    #ButtonStyles
+
+    These classes are used to give buttons their specific look.
+
+    Example usage:
+        <a class="button button--primary">Primary Link</a>
+
+    1. This color is tightly coupled to the color actually used
+        inside the .background-color--inverse class.
+    2. Added so default a:hover and a:focus styles do not force incorrect
+       colors for links styled as buttons. This may be removed once those
+       default selectors from bootstrap are gone.
+    3. The ripple effect stops click event propogation in Safari browser.
+       This will be fixed and re-enabled in SUPP-547.
+
+\* ------------------------------------------------------------------------- */
+.button--default {
+  background-color: #F0F4F7;
+  color: #004467;
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--default,
+a.button--default:hover,
+a.button--default:focus {
+  color: #333333;
+}
+.button--default:before {
+  /* [3] */
+  /* &:extend(.ripple--inverse); */
+}
+.button--default.button--pulse {
+  animation-name: pulse_animation;
+  animation-duration: 1.5s;
+  animation-delay: 1s;
+  transform-origin: 70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes pulse_animation {
+  25% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  75% {
+    transform: scale(1);
+  }
+}
+.button--default.button--pulse {
+  animation-name: pulse_animation;
+  animation-duration: 1.5s;
+  animation-delay: 1s;
+  transform-origin: 70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes pulse_animation {
+  25% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  75% {
+    transform: scale(1);
+  }
+}
+.button--primary {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+  /* [1] */
+}
+a.button--primary,
+a.button--primary:hover,
+a.button--primary:focus {
+  color: #ffffff;
+}
+.button--secondary {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--secondary,
+a.button--secondary:hover,
+a.button--secondary:focus {
+  color: #ffffff;
+}
+.button--inverse {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--inverse,
+a.button--inverse:hover,
+a.button--inverse:focus {
+  color: #ffffff;
+}
+.button--success {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--success,
+a.button--success:hover,
+a.button--success:focus {
+  color: #ffffff;
+}
+.button--info {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--info,
+a.button--info:hover,
+a.button--info:focus {
+  color: #ffffff;
+}
+.button--warning {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--warning,
+a.button--warning:hover,
+a.button--warning:focus {
+  color: #ffffff;
+}
+.button--critical {
+  /* [3] */
+  /*
+    .ripple();
+
+    &:before {
+        &:extend(.ripple-before);
+    }
+
+    &:active:before {
+        &:extend(.ripple-active-before);
+    }
+    */
+}
+a.button--critical,
+a.button--critical:hover,
+a.button--critical:focus {
+  color: #ffffff;
+}
+/* ------------------------------------------------------------------------- *\
+    #ButtonSizes
+
+    These classes are used to increase the size of a button.
+
+    Example usage:
+        <a class="button button--primary button--large">Primary Link</a>
+
+    The scale of the buttons is to half in size from the large button
+    all the way down to the extra small button. This keeps the buttons
+    looking good near each other and sizing different enough to have actual
+    use cases for different button sizes.
+
+\* ------------------------------------------------------------------------- */
+.button--large {
+  padding: 1rem 1.25rem;
+  font-size: 1.5rem;
+}
+.button--small {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+}
+.button--extra-small {
+  padding: 0.375rem 0.375rem;
+  font-size: 0.6rem;
+}
+.button--full {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+.button--centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button--icon {
+  padding: 0.375rem 0.375rem;
+  line-height: 0;
+  /* [1] */
+}
+.button--material-icon {
+  line-height: normal;
+  text-indent: 0 !important;
+}
+.button--material-icon .material-icons {
+  vertical-align: bottom;
+  font-size: 18px;
+}
+.button--flat {
+  background: transparent;
+  box-shadow: none;
+}
+.button--flat:active,
+.button--flat:hover,
+.button--flat:focus {
+  background: transparent;
+  box-shadow: none;
+}
+/* ------------------------------------------------------------------------- *\
+    #ButtonStates
+
+    These styles handle manually setting button states. If a button should
+    appear to be active then use the .button--active class.
+
+    1. Deactivated button should not indicate focus.
+    2. Deactivated button should not remove border, this value is dependent
+        on the original border color in .button
+
+\* ------------------------------------------------------------------------- */
+.button--active {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.button--disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+  box-shadow: none;
+}
+.button--disabled:active,
+.button--disabled:focus,
+.button--disabled:hover {
+  outline: none;
+  /* [1] */
+  box-shadow: none;
+  /* [1] */
+  border-color: #333333;
+  /* [2] */
+}
+/* ------------------------------------------------------------------------- *\
+    Button Groups
+
+    This file contains all styles for grouping buttons together. There
+    should be no visual styles applied within this file. Only the structure
+    of the buttons should be modified when within a group. This means
+    all buttons must use the `.button` class to get the correct overrides.
+
+    1. BaseButtonGroups      ... shared styles for all groups
+    2. ButtonGroupHorizontal ... styles for horizontal button groups
+
+    Example usage:
+
+        <div class="button-group button-group--horizontal">
+            <button class="button button--primary">Update Profile</button>
+            <a class="button button--secondary button--large">Click</a>
+        </div>
+
+    Note: a large amount of the styles within this file are take from
+        bootstrap's button groups.
+        https://github.com/twbs/bootstrap/blob/v3.3.5/less/button-groups.less
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    Mixins for clearing out floats.
+
+    1. ClearFloats ... use to clear out floated content
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #ClearFloats
+
+    This mixin should be used on elements that contain floated elements to
+    ensure that the document flow is restored.
+
+    1. Ensures the content clears out...
+    2. ...all the floats
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    Styles specific to supporting right to left and right to left
+    interchangeably.
+
+    1. RTLFloats ... Styles for floating rtl and ltr
+    2. RTLRadius ... Control border radius direction
+    3. RTLBorder ... Control border properties
+
+    NOTE: When using the mixins the styles need to be applied
+    to the block calling it, not within the block. So they almost all
+    are declared with the `&` after the selector to "pull" the style
+    out. See this LESS doc:
+    http://lesscss.org/features/#extend-feature-extending-nested-selectors
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #RTLFloats
+
+    Styles for handling floating left or right depending on [dir] attribute
+    in the html.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #RTLRadius
+
+    Handle the creation of border radius given the direction the border
+    radius should start. This means these border radius mixins should be
+    used in conjunction.
+
+    Example Usage:
+
+        .button-group--horizontal {
+            .button {
+                border-radius: 0;
+            }
+
+            .button:first-child {
+                .border-radius-left-mixin(@border-radius);
+            }
+
+            .button:last-child {
+                .border-radius-right-mixin(@border-radius);
+            }
+        }
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #RTLBorder
+
+    Handle the creation of borders given the direction the border
+    should start. This means these border-*-mixins should be
+    used in conjunction.
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #BaseButtonGroups
+
+    Default styles for all button groups. This should control the general
+    structure of button groups.
+
+\* ------------------------------------------------------------------------- */
+.button-group .button {
+  border-radius: 0;
+}
+/* ------------------------------------------------------------------------- *\
+    #ButtonGroupHorizontal
+
+    Default styles for horizontal button groups.
+
+    1. By using the .clear-floats-mixin the button-group will always have a
+        height and ensure content does not flow backwards into the group.
+    2. Remove any margin that has been applied so buttons
+    3. By default button groups should float to the left within their
+        container. This means if you want align buttons the
+        container will need to be specially aligned
+    4. Prevents button group jitter when button is active
+
+\* ------------------------------------------------------------------------- */
+.button-group--horizontal {
+  /* [1] */
+}
+.button-group--horizontal:before,
+.button-group--horizontal:after {
+  content: " ";
+  display: table;
+  /* [1] */
+}
+.button-group--horizontal:after {
+  clear: both;
+  /* [2] */
+}
+.button-group--horizontal .button {
+  margin-right: 0;
+  /* [2] */
+  margin-left: 0;
+  /* [2] */
+  /* [3] */
+}
+[dir="ltr"] .button-group--horizontal .button {
+  border-left-width: 1px;
+  border-left-color: transparent;
+}
+[dir="rtl"] .button-group--horizontal .button {
+  border-right-width: 1px;
+  border-right-color: transparent;
+}
+[dir="rtl"] .button-group--horizontal .button {
+  float: right;
+}
+[dir="ltr"] .button-group--horizontal .button {
+  float: left;
+}
+.button-group--horizontal .button:active + .button,
+.button-group--horizontal .button:focus + .button {
+  /* [4] */
+}
+[dir="ltr"] .button-group--horizontal .button:active + .button,
+[dir="ltr"] .button-group--horizontal .button:focus + .button {
+  border-left-width: 1px;
+  border-left-color: #333333;
+}
+[dir="rtl"] .button-group--horizontal .button:active + .button,
+[dir="rtl"] .button-group--horizontal .button:focus + .button {
+  border-right-width: 1px;
+  border-right-color: #333333;
+}
+[dir="ltr"] .button-group--horizontal .button:first-child {
+  border-left-width: 1px;
+  border-left-color: #333333;
+}
+[dir="rtl"] .button-group--horizontal .button:first-child {
+  border-right-width: 1px;
+  border-right-color: #333333;
+}
+[dir="ltr"] .button-group--horizontal .button:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+[dir="rtl"] .button-group--horizontal .button:first-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.button-group--horizontal .button:last-child {
+  border-right-width: 1px;
+}
+[dir="ltr"] .button-group--horizontal .button:last-child {
+  border-right-width: 1px;
+  border-right-color: #333333;
+}
+[dir="rtl"] .button-group--horizontal .button:last-child {
+  border-left-width: 1px;
+  border-left-color: #333333;
+}
+[dir="ltr"] .button-group--horizontal .button:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+[dir="rtl"] .button-group--horizontal .button:last-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+/* ------------------------------------------------------------------------- *\
+    Alert Styles
+
+    1. BaseAlert ... Structural styles for all alerts
+    2. AlertStyles ... Visual styles for all alerts
+    3. AlertActions ... Actions unique to an alert
+
+    Alerts keep users informed of important and sometimes time-sensitive changes.
+    Alerts are expected to be used using the base class `.alert` and an optional
+    alert modifier class (i.e. alert--info) for enchance styling. All alerts
+    contain an "aria-describedby" role that points to the textual content of the
+    alert. When possible, an "aria-label" or "aria-labelledby" is used for to
+    describe the summary of the alert message.
+
+
+    Reference material for aria choices: https://standards.usa.gov/alerts/
+
+    Example usage:
+        <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc">
+            <p id="dialog1Desc">This is a alert description</p>
+        </div>
+
+        <div class="alert alert--error" role="alertdialog" aria-describedby="dialog1Desc">
+            <p id="dialog1Desc">To extend your session, click the OK button</p>
+            <ul class="alert__actions">
+                <li><a href="">Continue</a></li>
+                <li><a href="">Cancel</a></li>
+            </ul>
+        </div>
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #BaseAlert
+
+
+    All alerts will be described with a role atribute value of "alert" or "alertdialog"
+    if the alert contains actions (see #AlertActions).
+
+    1. Clears the floats
+    2. Align border-radius, margins, and ul, p and a tag styles with bootstrap basics.
+       Alerts are heavily inspired by bootstrap alerts,
+       https://github.com/twbs/bootstrap/blob/v3.3.2/less/alerts.less#L28,
+       but we don't want bootstrap dependencies in the style guide.
+\* ------------------------------------------------------------------------- */
+/* [2] */
+/* [2] */
+.alert {
+  position: relative;
+  padding: 0.375rem;
+  border: 1px solid;
+  border-radius: 4px;
+  /* [2] */
+  margin-bottom: 18px;
+  /* [2] */
+  background-color: #f2f2f2;
+  display: table;
+  width: 100%;
+}
+.alert:before,
+.alert:after {
+  display: table-cell;
+}
+.alert:before {
+  font-family: FontAwesome;
+  font-size: 1rem;
+  content: "\f12a";
+  position: absolute;
+  top: 50%;
+  margin-top: -0.75rem;
+  left: 0.375rem;
+}
+.alert:after {
+  /* [1] */
+  content: " ";
+  clear: both;
+}
+.alert p {
+  margin: 0 0 0 2rem;
+  /* [2] */
+  display: inline-block;
+}
+.alert > ul {
+  margin-bottom: 0;
+  /* [2] */
+}
+.alert > p + p {
+  margin-top: 5px;
+  /* [2] */
+}
+.alert a {
+  font-weight: bold;
+  /* [2] */
+  text-decoration: none;
+  /* [2] */
+}
+.alert a:hover {
+  text-decoration: underline;
+  /* [2] */
+}
+/* ------------------------------------------------------------------------- *\
+    #AlertStyles
+
+    These classes are used to give alerts their specific look. If an alert is an
+    error styling then provide the aria role="alert" enhancement
+
+    Example usage:
+
+    <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc">
+        <p id="dialog1Desc">This is a alert description</p>
+    </div>
+
+\* ------------------------------------------------------------------------- */
+.alert--success {
+  background-color: #E0EFDA;
+  border-color: #64b145;
+}
+.alert--success:before {
+  content: "\f058";
+}
+.alert--info {
+  background-color: #CCEBF5;
+  border-color: #62b6eb;
+}
+.alert--info:before {
+  content: "\f05a";
+}
+.alert--warning {
+  background-color: #FCE0D7;
+  border-color: #faa419;
+}
+.alert--warning:before {
+  content: "\f071";
+}
+.alert--critical[role="alert"],
+.alert--critical[role="alertdialog"] {
+  background-color: #F5DAD5;
+  border-color: #ca3131;
+}
+.alert--critical[role="alert"]:before,
+.alert--critical[role="alertdialog"]:before {
+  content: "\f06a";
+}
+/* ------------------------------------------------------------------------- *\
+    #AlertActions
+
+    Actions a user can perform related to the alert message.
+
+    Example Usage:
+
+    <div class="alert alert--critical" aria-label="Alert description" aria-describedby="dialog1Desc" role="alertdialog">
+        <p id="dialog1Desc">To extend your session, click the OK button</p>
+        <ul class="alert__actions">
+            <li><a href="">Continue</a></li>
+            <li><a href="">Cancel</a></li>
+        </ul>
+    </div>
+
+\* ------------------------------------------------------------------------- */
+.alert__actions {
+  list-style: none;
+  float: right;
+}
+.alert__actions li {
+  float: left;
+  margin-left: 1rem;
+}
+.alert__actions a {
+  text-transform: uppercase;
+}
+/* ------------------------------------------------------------------------- *\
+    Styles for all tables within C2FO
+
+    1. TableDefaults - adds default styling for the table
+    2. TableHeader   - styles for table headings
+    3. TableRow      - styles for table rows
+    4. TableCell     - styles for cells of tables
+    5. TableFoot     - styles for table footer
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+    #TableDefaults
+
+    The default styles for tables within C2FO. If you want to use them you
+    must apply the `.table-default` class to your table. This is done right
+    now to avoid conflicts with the existing bootstrap table class names.
+
+    1. Using custom REMs because tables have special size needs compared
+        to other components.
+
+\* ------------------------------------------------------------------------- */
+.table-default {
+  text-align: right;
+  border-collapse: collapse;
+  border-spacing: 0;
+  line-height: 2.5rem;
+  /* [1] */
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+}
+.table-default tr {
+  padding: 1rem;
+  vertical-align: top;
+  border-top: 1px solid #f2f2f2;
+}
+/* ------------------------------------------------------------------------- *\
+    #TableHeader
+
+    These classes should be applied to the <thead> of a table.
+
+    1. Using custom REMs because tables have special size needs compared
+        to other components.
+    2. Add th specific styles to override bootstrap
+    3. Very specific override to override the bootstrap fixes
+
+\* ------------------------------------------------------------------------- */
+.table-default__thead th {
+  /* [2] */
+  text-align: right;
+  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.table-default__thead th.table-default__cell--left,
+.table-default__thead th.table-default__cell--text {
+  /* [2], [3] */
+  text-align: left;
+}
+.table-default__thead th.table-default__cell-center {
+  /* [2], [3] */
+  text-align: center;
+}
+.table-default__thead tr {
+  border-top: none;
+  padding: 1.25rem;
+  text-align: right;
+  line-height: 3rem;
+  /* 1 */
+}
+/* ------------------------------------------------------------------------- *\
+    #TableCell
+
+    These classes should be applied to a <th> or a <td> to give a specific
+    cell a given style.
+
+    1. This allows overriding of the parent element's style
+    2. Control the margin for a table cell that is an action
+        It requires markup with a container inside the action cell:
+        <td class="table-default__cell--action">
+            <some-element></some-element>
+        </td>
+\* ------------------------------------------------------------------------- */
+.table-default__cell--text {
+  text-align: left;
+}
+.table-default__cell--text.table-default__cell--text > .table-default__cell--text {
+  /* [1] */
+  text-align: left;
+}
+.table-default__cell--status {
+  text-align: center;
+}
+.table-default__cell--status.table-default__cell--status > .table-default__cell--status {
+  /* [1] */
+  text-align: center;
+}
+.table-default__cell--action > * {
+  /* [2] */
+  margin: 0.2rem;
+}
+/* ------------------------------------------------------------------------- *\
+    #TableFoot
+
+    These classes should be applied to a <tfoot> tag.
+
+\* ------------------------------------------------------------------------- */
+.table-default__tfoot {
+  font-weight: 600;
+  border-top: 3px solid #f2f2f2;
+}
+/* ------------------------------------------------------------------------- *\
+    #TableAction
+
+    These classes should be applied to buttons that interact with table elements.
+
+    1. This normalizes the margins to align with the table.
+
+\* ------------------------------------------------------------------------- */
+.table-default__actions {
+  margin-bottom: 0.75rem;
+  /* [1] */
+}
+.table-default__actions:before,
+.table-default__actions:after {
+  content: " ";
+  display: table;
+  /* [1] */
+}
+.table-default__actions:after {
+  clear: both;
+  /* [2] */
+}
+.table-default__actions-primary,
+.table-default__actions-secondary {
+  padding-left: 0;
+  padding-right: 0;
+  list-style: none;
+}
+.table-default__action {
+  float: left;
+  margin-left: 0.375rem;
+  margin-right: 0.375rem;
+}
+.table-default__action:first-child {
+  margin-left: 0;
+}
+.table-default__action:last-child {
+  margin-right: 0;
+}
+.table-default__action .button:only-child {
+  margin-left: 0;
+  margin-right: 0;
+}
+.table-default__actions-primary {
+  float: left;
+}
+.table-default__actions-secondary {
+  float: right;
+}
+.table-default__actions-secondary .table-default__action .form-inline .button[type="submit"] {
+  margin-right: 0;
+}
+/*# sourceMappingURL=app.css.map */
+/* ------------------------------------------------------------------------- *\
+   Custom grid system for managing responsive layouts.
+
+   This system is heavily based on the breaks that twitter bootstrap version
+   3.x uses as well as this article:
+   http://www.sitepoint.com/understanding-css-grid-systems/
+
+   The system uses a "mobile" first approach. See MediaQuery section for
+   more details. This grid system _only_ supplies grids. It does not add
+   any padding or margin whatsoever. This is left to the consumer to decide
+   how to apply margin and padding. Padding can be easily added to the grid.
+   Margin cannot be added to the grid, by philosophy it is not supported.
+
+   1. ColumnGenerators ..... mixins that create the "meat" of the grid
+   2. MediaQuery       ..... generates the actual grid CSS
+   3. GridLayout       ..... classes for actually using the grid
+   4. RTLSupport       ..... supplies the float of left or right to grid
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+   #ColumnGenerators
+
+    There are two main mixins here.
+
+    .make-responsive-columns -- Should be used when the columns need to be
+        responsive.
+        (e.g. .make-responsive-columns('md', 24) inside a media query)
+
+    .make-static-columns -- Should be used when the columns should not share
+        a line.
+        (e.g. .make-static-columns('sm', 24) inside the smallest media query)
+
+    1. .column-full-width must be defined in the caller to .make-static-columns
+        for the styles to be applied correctly. Ideally it will be something
+        with `width: 100%`.
+
+\* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- *\
+   #MediaQuery
+
+    Uses the ColumnMixins to create the actual grid system. This grid system
+    is built mobile first. Meaning the "lowest" used size propagates upward.
+    For example col-sm-2 will be the size for all viewports unless a larger
+    size of something like col-lg-4 is used on an element.
+
+    0. This ensures that at a very small screen all elements go to max width
+      1. This is kind of a hack so that the styles all use the same rule.
+    1. Should be used for smallest phones and tiny screens
+    2. Should be used for larger phone sizes and tablets
+    3. Should be used for larger tablets and standard desktop
+    4. Should be used for big desktops
+
+\* ------------------------------------------------------------------------- */
+@media only screen and (max-width: 550px) {
+  /* [0] */
+  .column-full-width,
+  .column-xs-1,
+  .column-xs-2,
+  .column-xs-3,
+  .column-xs-4,
+  .column-xs-5,
+  .column-xs-6,
+  .column-xs-7,
+  .column-xs-8,
+  .column-xs-9,
+  .column-xs-10,
+  .column-xs-11,
+  .column-xs-12,
+  .column-xs-13,
+  .column-xs-14,
+  .column-xs-15,
+  .column-xs-16,
+  .column-xs-17,
+  .column-xs-18,
+  .column-xs-19,
+  .column-xs-20,
+  .column-xs-21,
+  .column-xs-22,
+  .column-xs-23,
+  .column-xs-24,
+  .column-sm-1,
+  .column-sm-2,
+  .column-sm-3,
+  .column-sm-4,
+  .column-sm-5,
+  .column-sm-6,
+  .column-sm-7,
+  .column-sm-8,
+  .column-sm-9,
+  .column-sm-10,
+  .column-sm-11,
+  .column-sm-12,
+  .column-sm-13,
+  .column-sm-14,
+  .column-sm-15,
+  .column-sm-16,
+  .column-sm-17,
+  .column-sm-18,
+  .column-sm-19,
+  .column-sm-20,
+  .column-sm-21,
+  .column-sm-22,
+  .column-sm-23,
+  .column-sm-24,
+  .column-md-1,
+  .column-md-2,
+  .column-md-3,
+  .column-md-4,
+  .column-md-5,
+  .column-md-6,
+  .column-md-7,
+  .column-md-8,
+  .column-md-9,
+  .column-md-10,
+  .column-md-11,
+  .column-md-12,
+  .column-md-13,
+  .column-md-14,
+  .column-md-15,
+  .column-md-16,
+  .column-md-17,
+  .column-md-18,
+  .column-md-19,
+  .column-md-20,
+  .column-md-21,
+  .column-md-22,
+  .column-md-23,
+  .column-md-24,
+  .column-lg-1,
+  .column-lg-2,
+  .column-lg-3,
+  .column-lg-4,
+  .column-lg-5,
+  .column-lg-6,
+  .column-lg-7,
+  .column-lg-8,
+  .column-lg-9,
+  .column-lg-10,
+  .column-lg-11,
+  .column-lg-12,
+  .column-lg-13,
+  .column-lg-14,
+  .column-lg-15,
+  .column-lg-16,
+  .column-lg-17,
+  .column-lg-18,
+  .column-lg-19,
+  .column-lg-20,
+  .column-lg-21,
+  .column-lg-22,
+  .column-lg-23,
+  .column-lg-24 {
+    width: 100%;
+    /* [0.1] */
+  }
+}
+@media only screen and (min-width: 550px) {
+  /* [1] */
+  .column-xs-1 {
+    width: 4.16666667%;
+  }
+  .column-xs-2 {
+    width: 8.33333333%;
+  }
+  .column-xs-3 {
+    width: 12.5%;
+  }
+  .column-xs-4 {
+    width: 16.66666667%;
+  }
+  .column-xs-5 {
+    width: 20.83333333%;
+  }
+  .column-xs-6 {
+    width: 25%;
+  }
+  .column-xs-7 {
+    width: 29.16666667%;
+  }
+  .column-xs-8 {
+    width: 33.33333333%;
+  }
+  .column-xs-9 {
+    width: 37.5%;
+  }
+  .column-xs-10 {
+    width: 41.66666667%;
+  }
+  .column-xs-11 {
+    width: 45.83333333%;
+  }
+  .column-xs-12 {
+    width: 50%;
+  }
+  .column-xs-13 {
+    width: 54.16666667%;
+  }
+  .column-xs-14 {
+    width: 58.33333333%;
+  }
+  .column-xs-15 {
+    width: 62.5%;
+  }
+  .column-xs-16 {
+    width: 66.66666667%;
+  }
+  .column-xs-17 {
+    width: 70.83333333%;
+  }
+  .column-xs-18 {
+    width: 75%;
+  }
+  .column-xs-19 {
+    width: 79.16666667%;
+  }
+  .column-xs-20 {
+    width: 83.33333333%;
+  }
+  .column-xs-21 {
+    width: 87.5%;
+  }
+  .column-xs-22 {
+    width: 91.66666667%;
+  }
+  .column-xs-23 {
+    width: 95.83333333%;
+  }
+  .column-xs-24 {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* [2] */
+  .column-sm-1 {
+    width: 4.16666667%;
+  }
+  .column-sm-2 {
+    width: 8.33333333%;
+  }
+  .column-sm-3 {
+    width: 12.5%;
+  }
+  .column-sm-4 {
+    width: 16.66666667%;
+  }
+  .column-sm-5 {
+    width: 20.83333333%;
+  }
+  .column-sm-6 {
+    width: 25%;
+  }
+  .column-sm-7 {
+    width: 29.16666667%;
+  }
+  .column-sm-8 {
+    width: 33.33333333%;
+  }
+  .column-sm-9 {
+    width: 37.5%;
+  }
+  .column-sm-10 {
+    width: 41.66666667%;
+  }
+  .column-sm-11 {
+    width: 45.83333333%;
+  }
+  .column-sm-12 {
+    width: 50%;
+  }
+  .column-sm-13 {
+    width: 54.16666667%;
+  }
+  .column-sm-14 {
+    width: 58.33333333%;
+  }
+  .column-sm-15 {
+    width: 62.5%;
+  }
+  .column-sm-16 {
+    width: 66.66666667%;
+  }
+  .column-sm-17 {
+    width: 70.83333333%;
+  }
+  .column-sm-18 {
+    width: 75%;
+  }
+  .column-sm-19 {
+    width: 79.16666667%;
+  }
+  .column-sm-20 {
+    width: 83.33333333%;
+  }
+  .column-sm-21 {
+    width: 87.5%;
+  }
+  .column-sm-22 {
+    width: 91.66666667%;
+  }
+  .column-sm-23 {
+    width: 95.83333333%;
+  }
+  .column-sm-24 {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 992px) {
+  /* [3] */
+  .column-md-1 {
+    width: 4.16666667%;
+  }
+  .column-md-2 {
+    width: 8.33333333%;
+  }
+  .column-md-3 {
+    width: 12.5%;
+  }
+  .column-md-4 {
+    width: 16.66666667%;
+  }
+  .column-md-5 {
+    width: 20.83333333%;
+  }
+  .column-md-6 {
+    width: 25%;
+  }
+  .column-md-7 {
+    width: 29.16666667%;
+  }
+  .column-md-8 {
+    width: 33.33333333%;
+  }
+  .column-md-9 {
+    width: 37.5%;
+  }
+  .column-md-10 {
+    width: 41.66666667%;
+  }
+  .column-md-11 {
+    width: 45.83333333%;
+  }
+  .column-md-12 {
+    width: 50%;
+  }
+  .column-md-13 {
+    width: 54.16666667%;
+  }
+  .column-md-14 {
+    width: 58.33333333%;
+  }
+  .column-md-15 {
+    width: 62.5%;
+  }
+  .column-md-16 {
+    width: 66.66666667%;
+  }
+  .column-md-17 {
+    width: 70.83333333%;
+  }
+  .column-md-18 {
+    width: 75%;
+  }
+  .column-md-19 {
+    width: 79.16666667%;
+  }
+  .column-md-20 {
+    width: 83.33333333%;
+  }
+  .column-md-21 {
+    width: 87.5%;
+  }
+  .column-md-22 {
+    width: 91.66666667%;
+  }
+  .column-md-23 {
+    width: 95.83333333%;
+  }
+  .column-md-24 {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* [4] */
+  .column-lg-1 {
+    width: 4.16666667%;
+  }
+  .column-lg-2 {
+    width: 8.33333333%;
+  }
+  .column-lg-3 {
+    width: 12.5%;
+  }
+  .column-lg-4 {
+    width: 16.66666667%;
+  }
+  .column-lg-5 {
+    width: 20.83333333%;
+  }
+  .column-lg-6 {
+    width: 25%;
+  }
+  .column-lg-7 {
+    width: 29.16666667%;
+  }
+  .column-lg-8 {
+    width: 33.33333333%;
+  }
+  .column-lg-9 {
+    width: 37.5%;
+  }
+  .column-lg-10 {
+    width: 41.66666667%;
+  }
+  .column-lg-11 {
+    width: 45.83333333%;
+  }
+  .column-lg-12 {
+    width: 50%;
+  }
+  .column-lg-13 {
+    width: 54.16666667%;
+  }
+  .column-lg-14 {
+    width: 58.33333333%;
+  }
+  .column-lg-15 {
+    width: 62.5%;
+  }
+  .column-lg-16 {
+    width: 66.66666667%;
+  }
+  .column-lg-17 {
+    width: 70.83333333%;
+  }
+  .column-lg-18 {
+    width: 75%;
+  }
+  .column-lg-19 {
+    width: 79.16666667%;
+  }
+  .column-lg-20 {
+    width: 83.33333333%;
+  }
+  .column-lg-21 {
+    width: 87.5%;
+  }
+  .column-lg-22 {
+    width: 91.66666667%;
+  }
+  .column-lg-23 {
+    width: 95.83333333%;
+  }
+  .column-lg-24 {
+    width: 100%;
+  }
+}
+/* ------------------------------------------------------------------------- *\
+   #GridLayout
+
+   These styles are what "hold" the grid in place. The box-sizing allows for
+   padding and margin to be contained within the given section. The content
+   added in the pseudo selectors is what "clears" out the floats; in
+   conjunction with the `clear: both` style.
+
+    1. Makes the margin and padding get computed correctly within the element
+    2. Ensures the row clears out...
+    3. ...all the floats
+    4. Allows easy positioning of elements within a column
+    5. Ensures all columns take up entire row.
+
+\* ------------------------------------------------------------------------- */
+.row,
+.column {
+  box-sizing: border-box;
+  /* [1] */
+}
+.row:before,
+.row:after {
+  content: " ";
+  display: table;
+  /* [2] */
+}
+.row:after {
+  clear: both;
+  /* [3] */
+}
+.column {
+  position: relative;
+  /* [4] */
+}
+/* ------------------------------------------------------------------------- *\
+    #RTLSupport
+
+    Right to left and left to right support is gained by using the "dir"
+    attribute on the HTML. These selectors modify the responsive columns
+    defined above in the GridLayout section.
+
+    The way this is written the "column" class name becomes a reserved class
+    name to use.
+
+    Note: If a consumer wants to add margin and padding they will need to add
+    the padding direction to the elements. It should be padding-left for float
+    left, and padding-right for float right.
+
+\* ------------------------------------------------------------------------- */
+[dir="rtl"] .column {
+  float: right;
+}
+[dir="ltr"] .column {
+  float: left;
+}
+/*# sourceMappingURL=app.css.map */

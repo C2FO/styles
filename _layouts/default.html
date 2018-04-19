@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ page.title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400&subset=latin,latin-ext" rel="stylesheet">
+    <!-- include font awesome to demo icon buttons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" href='{{ "assets/css/app.css" | relative_url }}'>
+
+    <style>
+        /* Eventually these styles should make it into the guide itself */
+        body {
+            margin: 0 auto;
+        }
+
+        table {
+            text-align: left;
+        }
+
+        pre {
+            overflow: scroll;
+            border: 1px dotted black;
+        }
+
+        code {
+            word-wrap: normal;
+        }
+    </style>
+</head>
+<body class="row" id="site-container">
+    <aside class="column column-md-4" role="navigation">
+        {% include navigation.html %}
+    </aside>
+    {% if page.sub_nav %}
+        <aside class="column column-md-4">
+            {% include {{ page.sub_nav }} %}
+        </aside>
+        <main class="column column-md-16" role="main">
+            {{ content }}
+        </main>
+    {% else %}
+        <main class="column column-md-20" role="main">
+            {{ content }}
+        </main>
+    {% endif %}
+
+    <script>
+        function app() {
+            function escapeHtml(str) {
+                    var div = document.createElement('div');
+                    div.appendChild(document.createTextNode(str));
+                return div.innerHTML;
+            }
+
+            var codeSamples = document.getElementsByClassName('js-code-sample');
+
+            // Replace all the code samples with actual
+            // escaped text.
+            for (var i = 0; i < codeSamples.length; i++) {
+                codeSamples[i].innerHTML = escapeHtml(codeSamples[i].innerHTML);
+            }
+        }
+        app();
+    </script>
+</body>
+</html>

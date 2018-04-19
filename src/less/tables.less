@@ -1,0 +1,198 @@
+/* ------------------------------------------------------------------------- *\
+    Styles for all tables within C2FO
+
+    1. TableDefaults - adds default styling for the table
+    2. TableHeader   - styles for table headings
+    3. TableRow      - styles for table rows
+    4. TableCell     - styles for cells of tables
+    5. TableFoot     - styles for table footer
+
+\* ------------------------------------------------------------------------- */
+@import (reference) 'measurements.less';
+@import (reference) 'colors.less';
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TableDefaults
+
+    The default styles for tables within C2FO. If you want to use them you
+    must apply the `.table-default` class to your table. This is done right
+    now to avoid conflicts with the existing bootstrap table class names.
+
+    1. Using custom REMs because tables have special size needs compared
+        to other components.
+
+\* ------------------------------------------------------------------------- */
+.table-default {
+    text-align: right;
+    border-collapse: collapse;
+    border-spacing: 0;
+    line-height: 2.5rem; /* [1] */
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: @margin-default;
+    background-color: @color-white;
+
+    tr {
+        padding: @padding-default;
+        vertical-align: top;
+        border-top: @border-width--extra-small solid @color-gray;
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TableHeader
+
+    These classes should be applied to the <thead> of a table.
+
+    1. Using custom REMs because tables have special size needs compared
+        to other components.
+    2. Add th specific styles to override bootstrap
+    3. Very specific override to override the bootstrap fixes
+
+\* ------------------------------------------------------------------------- */
+.table-default__thead {
+
+    th { /* [2] */
+        text-align: right;
+        font-weight: 600; //semi-bold
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+
+        &.table-default__cell--left,
+        &.table-default__cell--text { /* [2], [3] */
+            text-align: left;
+        }
+
+        &.table-default__cell-center { /* [2], [3] */
+            text-align: center;
+        }
+    }
+
+    tr {
+        border-top: none;
+        padding: @padding-large;
+        text-align: right;
+        line-height: 3rem; /* 1 */
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TableCell
+
+    These classes should be applied to a <th> or a <td> to give a specific
+    cell a given style.
+
+    1. This allows overriding of the parent element's style
+    2. Control the margin for a table cell that is an action
+        It requires markup with a container inside the action cell:
+        <td class="table-default__cell--action">
+            <some-element></some-element>
+        </td>
+\* ------------------------------------------------------------------------- */
+.table-default__cell--text {
+    text-align: left;
+
+    && > & { /* [1] */
+        text-align: left;
+    }
+}
+
+.table-default__cell--status {
+    text-align: center;
+
+    && > & { /* [1] */
+        text-align:center;
+    }
+}
+
+.table-default__cell--action {
+    > * { /* [2] */
+        margin: .2rem
+    }
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TableFoot
+
+    These classes should be applied to a <tfoot> tag.
+
+\* ------------------------------------------------------------------------- */
+.table-default__tfoot {
+    font-weight: 600;
+    border-top: @border-width solid @color-gray;
+}
+
+
+
+
+
+/* ------------------------------------------------------------------------- *\
+    #TableAction
+
+    These classes should be applied to buttons that interact with table elements.
+
+    1. This normalizes the margins to align with the table.
+
+\* ------------------------------------------------------------------------- */
+
+.table-default__actions {
+    margin-bottom: @margin-small; /* [1] */
+    .clear-floats-mixin();
+}
+
+.table-default__actions-primary,
+.table-default__actions-secondary {
+    padding-left: 0;
+    padding-right: 0;
+    list-style: none;
+}
+
+.table-default__action {
+    float: left;
+    margin-left: @margin-extra-small;
+    margin-right: @margin-extra-small;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    .button:only-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+.table-default__actions-primary {
+    float: left;
+}
+
+.table-default__actions-secondary {
+    float: right;
+
+    .table-default__action {
+        .form-inline .button[type="submit"] {
+            margin-right: 0;
+        }
+    }
+}

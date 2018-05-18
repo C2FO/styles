@@ -21,7 +21,7 @@
   },
   "scripts": {
     "setup": "grunt setup",
-    "start": "jekyll serve",
+    "start": "grunt less:docs && jekyll serve",
     "watch": "grunt monitor",
     "dist": "grunt dist",
     "publish_site": "grunt publish"

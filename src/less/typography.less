@@ -108,6 +108,11 @@
         experience for users.  This uses the bootstrap defined md-min of 992px:
         https://github.com/twbs/bootstrap/blob/v3.3.2/less/variables.less#L294,
         decoupled to avoid direct dependence on bootstrap.
+    7. Because current c2fo styles set a differing font size and line-height on
+       html and body, we need to account for both to compute REM units the same
+       way c2fo early pay does.
+       -WHEN TO REMOVE-: when we achieve one source of truth for
+         font-size for the site.
 
 \* ------------------------------------------------------------------------- */
 @screen-md-min: 992px; /* [5] */
@@ -116,12 +121,18 @@
 @line-height-computed: floor((@font-size-base * @line-height-base)); /* [2] */
 
 html {
-    font-size: 13px; /* [1] */
+    font-size: 16px; /* [1] */
+    line-height: 1.45rem; /* [2] */
     font-family: 'Open Sans', Arial, sans-serif;
     line-height: @line-height-computed; /* [2] */
     -webkit-text-size-adjust: 100%; /* [3] */
         -ms-text-size-adjust: 100%; /* [3] */
     word-wrap: break-word; /* [4] */
+}
+
+body {
+    font-size: @font-size-base; /* [7] */
+    line-height: @line-height-computed; /* [7] */
 }
 
 @media only screen and (max-width: @screen-md-min) { /* [5] */
@@ -131,7 +142,7 @@ html {
     }
 
     .heading {
-        font-size: bold;
+        font-weight: bold;
         font-size: 1.7rem;
         line-height: 2rem;
     }

@@ -101,6 +101,7 @@
         <td class="table-default__cell--action">
             <some-element></some-element>
         </td>
+    3. We don't want date strings to wrap and become hard to read.
 \* ------------------------------------------------------------------------- */
 .table-default__cell--text {
     text-align: left;
@@ -114,7 +115,7 @@
     text-align: center;
 
     && > & { /* [1] */
-        text-align:center;
+        text-align: center;
     }
 }
 
@@ -122,6 +123,10 @@
     > * { /* [2] */
         margin: .2rem
     }
+}
+
+.table-default__cell--date {
+    white-space: nowrap; /* [3] */
 }
 
 

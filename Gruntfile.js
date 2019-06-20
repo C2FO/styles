@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['docs/**/*', 'src/**/*'],
-        tasks: ['less:docs'],
+        tasks: ['less:docs', 'less:dist'],
         options: {
           spawn: false
         }

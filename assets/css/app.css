@@ -363,7 +363,7 @@ html {
 }
 .background-color,
 html {
-  background-color: #F0F4F7;
+  background-color: #F2F2F2;
 }
 .background-color--alt {
   background-color: #ffffff;
@@ -756,7 +756,7 @@ html {
 
 \* ------------------------------------------------------------------------- */
 .button--default {
-  background-color: #F0F4F7;
+  background-color: #F2F2F2;
   color: #004467;
   /* [3] */
   /*
@@ -1468,7 +1468,7 @@ a.button--critical:focus {
   /* [2], [3] */
   text-align: left;
 }
-.table-default__thead th.table-default__cell-center {
+.table-default__thead th.table-default__cell--center {
   /* [2], [3] */
   text-align: center;
 }
@@ -1491,6 +1491,7 @@ a.button--critical:focus {
         <td class="table-default__cell--action">
             <some-element></some-element>
         </td>
+    3. We don't want date strings to wrap and become hard to read.
 \* ------------------------------------------------------------------------- */
 .table-default__cell--text {
   text-align: left;
@@ -1509,6 +1510,10 @@ a.button--critical:focus {
 .table-default__cell--action > * {
   /* [2] */
   margin: 0.2rem;
+}
+.table-default__cell--date {
+  white-space: nowrap;
+  /* [3] */
 }
 /* ------------------------------------------------------------------------- *\
     #TableFoot
